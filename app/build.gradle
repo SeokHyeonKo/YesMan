@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "yesman.af.softwareengineeringdepartment.cbnu.yesman"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -24,4 +24,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.google.android.gms:play-services:8.4.0'
+
+    compile 'info.hoang8f:fbutton:1.0.5'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.5.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
 }

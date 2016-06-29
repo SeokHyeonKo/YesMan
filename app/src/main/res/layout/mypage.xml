@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/logout_button"
+        android:text="Log out"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:layout_below="@+id/button3"
+        android:layout_alignStart="@+id/home_profile_image_facebook" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/home_profile_image_facebook"
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
+        android:rating="4"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/home_profile_image_facebook" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="관심사 변경"
+        android:id="@+id/button2"
+        android:onClick="Onclick_interest"
+        android:layout_below="@+id/ratingBar2"
+        android:layout_toEndOf="@+id/home_profile_image_facebook" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나의 글 확인"
+        android:id="@+id/button3"
+        android:onClick="Onclick_mylist"
+        android:layout_below="@+id/button4"
+        android:layout_toRightOf="@+id/home_profile_image_facebook" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 위치  변경 "
+        android:id="@+id/button4"
+        android:onClick="Onclick_GPS"
+        android:layout_below="@+id/button2"
+        android:layout_toRightOf="@+id/home_profile_image_facebook" />
+</RelativeLayout>
