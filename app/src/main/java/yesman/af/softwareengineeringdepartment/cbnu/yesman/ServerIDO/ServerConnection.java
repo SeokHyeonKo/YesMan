@@ -43,7 +43,7 @@ public class ServerConnection extends AsyncTask<String, String, String> {
 
                 OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
                 //System.out.println(obj.toString());
-                 wr.write("data=" + obj.toString());
+                if(obj!=null) wr.write("data=" + obj.toString());
 
                 wr.flush();
                 wr.close();

@@ -14,7 +14,7 @@ public class JsonMaker {
 
 
     private static JsonMaker jsonmaker = null;
-    public static int JOIN = 0,GET_REQUSET_LIST = 1,GET_DONATION_LIST = 2, REGISTER_BOARD = 3, CHANGE_LOCATION = 4,CHECK_MYBOARDLIST = 5;
+    public static int TEST = -1,JOIN = 0,GET_REQUSET_LIST = 1,GET_DONATION_LIST = 2, REGISTER_BOARD = 3, CHANGE_LOCATION = 4,CHECK_MYBOARDLIST = 5;
     private JSONObject jsonobj;
     private JSONArray jsonarr;
     private int selected;
@@ -32,6 +32,8 @@ public class JsonMaker {
             tempobj = changeLocationJSON(user);
         }else if(selected==CHECK_MYBOARDLIST){
             tempobj = checkMyBoardListJSON(user);
+        }else{
+            return null;
         }
 
 

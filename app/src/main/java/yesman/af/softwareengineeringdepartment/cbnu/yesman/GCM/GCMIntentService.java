@@ -10,11 +10,14 @@ import android.support.v7.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.RegisterBoardActivity;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.GCMtestActivity;
 //으범수정
 /**
  * Created by seokhyeon on 2016-06-26.
@@ -51,6 +54,7 @@ public class GCMIntentService extends IntentService {
         // in your BroadcastReceiver.
         String messageType = gcm.getMessageType(intent);
 
+
         System.out.println("************************************************* messageType : " + messageType);
 
         if (!extras.isEmpty()) {
@@ -73,28 +77,38 @@ public class GCMIntentService extends IntentService {
     // 상태바에 공지
     private void sendNotification(Bundle extras) {
         // 혹시 모를 사용가능한 코드
-        String typeCode = extras.getString(TYPE_EXTRA_CODE);
+        String jobjstring = extras.getString(TYPE_EXTRA_CODE);
+        System.out.println("넘어온 제이슨 : "+jobjstring);
+        JSONObject jboj = null;
+        try {
+            jboj = new JSONObject(jobjstring);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, RegisterBoardActivity.class), 0);
+                new Intent(this, GCMtestActivity.class), 0);
 
         NotificationCompat.Builder mBuilder =
                 null;
         try {
             mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.ic_launcher) // 도메인에 맡게 코딩하면 될듯
                     .setContentTitle(URLDecoder.decode(extras.getString(TITLE_EXTRA_KEY), "UTF-8"))
                     .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(URLDecoder.decode(extras.getString(MSG_EXTRA_KEY), "UTF-8")))
-                    .setContentText(URLDecoder.decode(extras.getString(MSG_EXTRA_KEY), "UTF-8"));
+                    .setContentText(URLDecoder.decode(extras.getString(MSG_EXTRA_KEY), "UTF-8"))
+                    .setGroup(URLDecoder.decode(jboj.getString("userid"), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        mBuilder.setVibrate(new long[]{0,3000}); // 진동 효과 (퍼미션 필요)
+        mBuilder.setVibrate(new long[]{0,1500}); // 진동 효과 (퍼미션 필요)
         mBuilder.setAutoCancel(true); // 클릭하면 삭제
 
         mBuilder.setContentIntent(contentIntent);

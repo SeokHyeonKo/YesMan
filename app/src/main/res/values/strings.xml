@@ -7,4 +7,5 @@
     <string name="titleB">재능요청</string>
     <string name="titleC">글쓰기</string>
     <string name="titleD">마이페이지</string>
+    <string name="title_activity_gcmtest">GCMtestActivity</string>
 </resources>

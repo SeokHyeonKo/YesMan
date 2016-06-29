@@ -69,13 +69,13 @@ public class RegisterBoardActivity extends Activity
 
                             // Board dashBoard = new Board(title,content,date,x,y);
 
-                            user.setUserID("234edfsd23");
+                            user.setUserID("234ed");
                              user.setX(100);
                             user.setY(125);
                              Board board = new Board("ddd","sdfdf",new Date(),123.124,231.23);
                             user.setCurrentDashBoard(board);
 
-                            a.joinUser();
+                            a.registerBoard();
 
                      }
                  });

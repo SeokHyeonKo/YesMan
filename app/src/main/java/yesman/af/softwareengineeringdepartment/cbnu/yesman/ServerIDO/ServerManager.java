@@ -13,6 +13,13 @@ public class ServerManager {
     private String url = "http://kossi.iptime.org:2000/YesManProject";
 
 
+    public void pushTest(){
+        path="/push";
+        JsonMaker.getInstance().setSeleted(JsonMaker.TEST);
+        checkTask();
+        server.execute(url+path);
+    }
+
     public void checkMyBoardList(){
         path = "/getMyBoardList";
         JsonMaker.getInstance().setSeleted(JsonMaker.CHECK_MYBOARDLIST);
