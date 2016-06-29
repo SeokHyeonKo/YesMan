@@ -1,11 +1,12 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by seokhyeon on 2016-06-22.
  */
-public class Board {
+public class Board implements Serializable{
     private int boardserialnumber;
     private double x;
     private double y;
