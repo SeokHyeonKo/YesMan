@@ -28,7 +28,7 @@ public class GCMIntentService extends IntentService {
     static final String MSG_EXTRA_KEY = "MSG";
     static final String TYPE_EXTRA_CODE = "TYPE_CODE";
     // web server 에서 받을 extras key
-
+    //다시
     public GCMIntentService() {
         super("");
     }
