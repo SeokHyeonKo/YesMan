@@ -43,7 +43,7 @@ public class BoardList_Fragment extends Fragment {
         data.add(item5);
         data.add(item6);
         data.add(item7);
-
+        System.out.println("들어옴?");
         ListViewAdapter adapter = new ListViewAdapter(getActivity(), R.layout.list_content, data);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);

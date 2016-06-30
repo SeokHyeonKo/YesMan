@@ -26,6 +26,7 @@ public class GCMtestActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
 }

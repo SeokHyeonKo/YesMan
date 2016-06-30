@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/board_list"
         android:layout_gravity="start"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="5dp"/>
 
 </LinearLayout>

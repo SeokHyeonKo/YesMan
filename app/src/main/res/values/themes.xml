@@ -1,0 +1,18 @@
+<resources>
+
+
+    <style name="AppTheme.TranslucentActionBar">
+        <item name="android:actionBarStyle">@style/Widget.ActionBar.Transparent</item>
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Light.TranslucentActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/Widget.Light.ActionBar.Transparent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+</resources>
