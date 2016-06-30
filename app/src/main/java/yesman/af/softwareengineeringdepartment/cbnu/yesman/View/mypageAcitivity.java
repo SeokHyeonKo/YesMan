@@ -1,20 +1,18 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 
-public class mypageAcitivity extends Activity {
+public class mypageAcitivity extends ActionBarActivity {
 
     private Profile profile;
     private TextView tv_home_user_id;
@@ -26,6 +24,16 @@ public class mypageAcitivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MyFadingActionBarHelper helper = new MyFadingActionBarHelper()
+                .actionBarBackground(R.drawable.computer)
+                .headerLayout(R.layout.myapge_header)
+                .contentLayout(R.layout.mypage_activity);
+
+        setContentView(helper.createView(this));
+        helper.initActionBar(this);
+
+
+        /*
         FacebookSdk.sdkInitialize(getApplicationContext()); // SDK 초기화 (setContentView 보다 먼저 실행
         setContentView(R.layout.mypage);
 
@@ -42,6 +50,7 @@ public class mypageAcitivity extends Activity {
 
         profilePictureView = (ProfilePictureView)findViewById(R.id.home_profile_image_facebook);
         profilePictureView.setProfileId(id);
+        */
     }
     public void Onclick_interest(View v) {
         Intent intent = new Intent(getApplicationContext(), interestAcitivity.class);
