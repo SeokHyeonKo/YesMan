@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -24,7 +25,6 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.Shar
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 public class MapAcitivity extends AppCompatActivity {
-    static final LatLng Center = new LatLng(35.846777, 127.129375);
     private GoogleMap map;
     public String which;
     // 알림창에 들어가는 변수
@@ -33,12 +33,12 @@ public class MapAcitivity extends AppCompatActivity {
     private double x;
     private double y;
     SharedPreference sharedPreference;
-
+    GpsInfo gps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        gps = new GpsInfo(MapAcitivity.this);
         sharedPreference = new SharedPreference(this);
         MapsInitializer.initialize(getApplicationContext());
         GooglePlayServicesUtil.isGooglePlayServicesAvailable(MapAcitivity.this);
@@ -50,9 +50,11 @@ public class MapAcitivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
                 MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(arg0.latitude, arg0.longitude));
-                sharedPreference.put(sharedPreference.user_x, String.valueOf(arg0.latitude)); //서버에 넘겨줄 좌표값
-                sharedPreference.put(sharedPreference.user_y,  String.valueOf(arg0.longitude));
+                Log.d("GPS수신......X : ", String.valueOf(arg0.latitude));
+                Log.d("GPS수신......Y : ", String.valueOf(arg0.longitude));
                 map.addMarker(markerOptions).showInfoWindow();
+                sharedPreference.put(sharedPreference.user_x, String.valueOf(arg0.latitude)); //서버에 넘겨줄 좌표값
+                sharedPreference.put(sharedPreference.user_y, String.valueOf(arg0.longitude));
             }
         });
 
@@ -63,10 +65,6 @@ public class MapAcitivity extends AppCompatActivity {
             }
         });
 
-
-        MarkerOptions markerOptions = new MarkerOptions().position(Center);
-        map.addMarker(markerOptions).showInfoWindow();
-
         alert = new AlertDialog.Builder(context);
         alert.setTitle("GPS설정정보");
         alert.setMessage("현재위치를 사용하시려면 아니오를\n위치를 새로 설정하시려면 예를\n눌러주세요.");
@@ -75,6 +73,14 @@ public class MapAcitivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //사용자 위치 선택 받기
+                if (gps.isGetLocation()) {
+                    x = gps.getLatitude();
+                    y = gps.getLongitude();
+                    LatLng latLng = new LatLng(x, y);
+                    map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                    map.animateCamera(CameraUpdateFactory.zoomTo(17));
+                }
             }
         });
         alert.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -90,7 +96,7 @@ public class MapAcitivity extends AppCompatActivity {
 
     private void init() {
 
-        GpsInfo gps = new GpsInfo(MapAcitivity.this);
+
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
             x = gps.getLatitude();
@@ -99,7 +105,8 @@ public class MapAcitivity extends AppCompatActivity {
             sharedPreference.put(sharedPreference.user_y, String.valueOf(y));
             // Creating a LatLng object for the current location
             LatLng latLng = new LatLng(x, y);
-
+            Log.d("GPS수신......X : ", String.valueOf(x));
+            Log.d("GPS수신......Y : ", String.valueOf(y));
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             map.animateCamera(CameraUpdateFactory.zoomTo(17));

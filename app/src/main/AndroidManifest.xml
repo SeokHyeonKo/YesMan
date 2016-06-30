@@ -56,11 +56,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="YPGZ+3iO5bL8sCb1J5wTiOe1tW8=" />
-        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDGbzYI4Rcs3YnqB0-wUH4QgD4Fpl5Tf1g" />
+            android:value="AIzaSyBy28KiCfS7hOQDNJGSY6FUoKa3pKm4g5c" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

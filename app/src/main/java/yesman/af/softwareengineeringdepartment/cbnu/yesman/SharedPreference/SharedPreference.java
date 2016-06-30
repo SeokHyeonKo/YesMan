@@ -25,7 +25,7 @@ public class SharedPreference{
     public String first_login = "FACEBOOK_FIRST_LOGIN";    //처음 로그인
     public String facebook_login = "FACEBOOK_LOGIN";   //페이스북 로그인
     public String user_id = "USER_ID"; //유저 아이디
-    public String user_password = "USER_PASSWORD"; //유저 패스워드
+    public String user_name = "USER_NAME";    //유저 y좌표
     public String user_x = "x";    //유저 x좌표
     public String user_y = "y";    //유저 y좌표
 

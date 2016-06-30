@@ -30,12 +30,6 @@ public class interestAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interest);
         success_button = (FButton) findViewById(R.id.success_button);
-        success_button.setButtonColor(getResources().getColor(R.color.color_concrete));
-        success_button.setShadowColor(getResources().getColor(R.color.color_asbestos));
-        success_button.setShadowEnabled(true);
-        success_button.setShadowHeight(5);
-        success_button.setCornerRadius(5);
-
 
         domain0 = (CheckBox) findViewById(R.id.domain_c0);
         domain1 = (CheckBox) findViewById(R.id.domain_c1);

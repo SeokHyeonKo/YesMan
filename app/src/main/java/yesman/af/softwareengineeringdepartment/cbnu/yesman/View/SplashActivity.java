@@ -32,7 +32,7 @@ public class SplashActivity extends Activity {
                             /** 환경 변수 중 로그인 부분을 체킹하여 Activity 전환 */
                             // 페이스북 로그인
                             if(facebook_login.equals("LOGIN")) {
-                                Intent mainIntent = new Intent(SplashActivity.this, mypageAcitivity.class);
+                                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
                                 SplashActivity.this.startActivity(mainIntent);
                                 SplashActivity.this.finish();
                 }
