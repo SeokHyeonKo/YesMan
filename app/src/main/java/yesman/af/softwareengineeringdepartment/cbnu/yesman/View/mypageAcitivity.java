@@ -31,7 +31,7 @@ public class mypageAcitivity extends ActionBarActivity {
 
         setContentView(helper.createView(this));
         helper.initActionBar(this);
-
+        //s
 
         /*
         FacebookSdk.sdkInitialize(getApplicationContext()); // SDK 초기화 (setContentView 보다 먼저 실행
