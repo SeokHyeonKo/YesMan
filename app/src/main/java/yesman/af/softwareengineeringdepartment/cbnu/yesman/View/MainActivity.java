@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setBackgroundResource(R.drawable.messenger_button_white_bg_round);
 
 
-
-
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.titleA, BoardList_Fragment.class)

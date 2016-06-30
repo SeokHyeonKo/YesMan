@@ -8,7 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import com.manuelpeinado.fadingactionbar.FadingActionBarHelperBase;
 
 /**
- * Created by seokhyeon on 2016-07-01.
+ * Created by Jo on 2016-07-01.
  */
 public class MyFadingActionBarHelper extends FadingActionBarHelperBase {
 
@@ -32,6 +32,7 @@ public class MyFadingActionBarHelper extends FadingActionBarHelperBase {
     @Override
     public void initActionBar(Activity activity) {
         mActionBar = ((ActionBarActivity) activity).getSupportActionBar();
+        mActionBar.hide();
         super.initActionBar(activity);
     }
 }

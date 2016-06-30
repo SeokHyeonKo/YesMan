@@ -73,7 +73,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".View.DetailBoardActivity" />
+        <activity android:name=".View.DetailBoardActivity"
+            android:parentActivityName=".View.MainActivity" >>
+        </activity>
         <activity android:name=".View.SplashActivity" />
         <activity
             android:name=".View.interestAcitivity"
