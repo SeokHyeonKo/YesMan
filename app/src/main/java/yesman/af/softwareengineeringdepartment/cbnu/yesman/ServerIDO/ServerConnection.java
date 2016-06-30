@@ -42,7 +42,7 @@ public class ServerConnection extends AsyncTask<String, String, String> {
                 JSONObject obj = JsonMaker.getInstance().makeJson();
 
                 OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-                //System.out.println(obj.toString());
+                System.out.println(obj.toString());
                 if(obj!=null) wr.write("data=" + obj.toString());
 
                 wr.flush();
@@ -89,6 +89,13 @@ public class ServerConnection extends AsyncTask<String, String, String> {
                 System.out.println(arr.get(i).getX());
 
             }
+        }
+
+        if(JsonMaker.getInstance().getSeleted()==JsonMaker.CHECK_USER){
+            System.out.println("유저 확인");
+            System.out.println(result);
+            User.getInstance().setExist_already(DataMakerbyJson.getDataMaker().chekUser(result));
+
         }
 
 

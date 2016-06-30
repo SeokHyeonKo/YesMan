@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.GCMtestActivity;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.RegisterBoardActivity;
 //으범수정
 /**
  * Created by seokhyeon on 2016-06-26.
@@ -30,6 +30,8 @@ public class GCMIntentService extends IntentService {
     static final String TITLE_EXTRA_KEY = "TITLE";
     static final String MSG_EXTRA_KEY = "MSG";
     static final String TYPE_EXTRA_CODE = "TYPE_CODE";
+
+
     // web server 에서 받을 extras key
     //다시
     public GCMIntentService() {
@@ -89,8 +91,12 @@ public class GCMIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        GCMValue.IS_NOTIFICATION = "TRUE";
+        Intent intent = new Intent(this,RegisterBoardActivity.class);
+        intent.putExtra(GCMValue.NOTIFICATION,GCMValue.IS_NOTIFICATION);
+
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, GCMtestActivity.class), 0);
+                intent, 0);
 
         NotificationCompat.Builder mBuilder =
                 null;

@@ -1,5 +1,7 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.JSON;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +61,25 @@ public class DataMakerbyJson {
         }
 
         return boardlist;
+    }
+
+    public boolean chekUser(String response){
+
+        boolean isExist = false;
+        System.out.println(response);
+
+        try{
+            JSONObject json = new JSONObject(response);
+            Log.w("그전 값 확인 : ",Boolean.toString(json.getBoolean("exist")));
+            if(json.getBoolean("exist")) isExist = true;
+
+            Log.w("값 확인 ",Boolean.toString(isExist));
+         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return isExist;
     }
 
 

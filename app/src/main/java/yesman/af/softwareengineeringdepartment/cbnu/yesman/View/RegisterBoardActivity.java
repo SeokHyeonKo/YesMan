@@ -2,12 +2,14 @@ package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.GCM.GCMValue;
-
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
@@ -43,16 +44,55 @@ public class RegisterBoardActivity extends Activity
                 protected void onCreate(Bundle savedInstanceState) {
                     super.onCreate(savedInstanceState);
                     setContentView(R.layout.test);
+                    context = getApplicationContext();
+
+
                     user = User.getInstance();
 
-                    context = getApplicationContext();
-                    gcm = GoogleCloudMessaging.getInstance(context);
-                    user.setRegID(getRegistrationId(context)); // 기존에 발급받은 등록 아이디를 가져온다
+                    user.setUserID("2222222" +
+                            "");
+                    user.setX(100);
+                    user.setY(125);
+                    Board board = new Board("두번째","사람입니다",new Date(),123.124,231.23);
+                    user.setCurrentDashBoard(board);
+
+
+
+                    //앱 버전이 바뀌었거나 등록된 아이디가 없다면 다시 발급
+                    //서버 접근하여 아이디가 없는지 있는지 확인하여야함
+                    //잠재적 오류 나중에 코딩해야함!!!!!
+
+
+                    System.out.println("유저를 체크합니다----------------");
+                    ServerManager a = new ServerManager();
+                    a.checkUser();
+
+                    // 체크할때 http 통신을 기달려 줘야한다.
+                    new Handler().postDelayed(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            if(user.isExist_already()==true) System.out.println("유저가 존재 합니다........");
+                            else System.out.println("유저가 존재 하지 않습니다........");
+
+                            if(user.isExist_already()==false){
+                                gcm = GoogleCloudMessaging.getInstance(context);
+                                System.out.println("************************************************* gcm 발급");
+                                registerInBackground();
+                                ServerManager a = new ServerManager();
+                                a.joinUser();
+                                storeRegistrationId(context, regid);
+                            }
+                            user.setRegID(getRegistrationId(context)); // 기존에 발급받은 등록 아이디를 가져온다
+
+                        }
+                    }, 500);
+
+
+
                     System.out.println("regid : "+regid);
-                    if (user.getRegID().isEmpty()) { // 기존에 발급된 등록 아이디가 없으면 registerInBackground 메서드를 호출해 GCM 서버에 발급을 요청한다.
-                        System.out.println("************************************************* gcm 발급");
-                        registerInBackground();
-                    }
+
 
 
                     context = getApplicationContext();
@@ -69,11 +109,7 @@ public class RegisterBoardActivity extends Activity
 
                             // Board dashBoard = new Board(title,content,date,x,y);
 
-                            user.setUserID("234ed");
-                             user.setX(100);
-                            user.setY(125);
-                             Board board = new Board("ddd","sdfdf",new Date(),123.124,231.23);
-                            user.setCurrentDashBoard(board);
+
 
                             a.registerBoard();
 
@@ -82,9 +118,19 @@ public class RegisterBoardActivity extends Activity
 
 
 
+                    //notification 시 해당하는 화면을 호출하기 위한 부분
+                    if(getIntent().hasExtra(GCMValue.NOTIFICATION)){
+                            Bundle extras = getIntent().getExtras();
+                            String value = extras.getString(GCMValue.NOTIFICATION);
+                            Intent intent = new Intent(this, GCMtestActivity.class);
+                            GCMValue.IS_NOTIFICATION="FALSE";
+                            startActivity(intent);
+                            System.out.println("인텐트");
+                    }
+
+
+
                 }
-
-
 
     // 저장된 reg id 조회
     private String getRegistrationId(Context context) {
@@ -92,7 +138,8 @@ public class RegisterBoardActivity extends Activity
         String registrationId = prefs.getString(GCMValue.PROPERTY_REG_ID, ""); // 저장해둔 등록 아이디가 없으면 빈 문자열을 반환한다.
         if (registrationId.isEmpty()) {
             System.out.println("************************************************* Registration not found.");
-            return "";
+
+            registrationId = "";
         }
 
         // 앱이 업데이트 되었는지 확인하고, 업데이트 되었다면 기존 등록 아이디를 제거한다.
@@ -101,7 +148,7 @@ public class RegisterBoardActivity extends Activity
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) { // 이전에 등록 아이디를 저장한 앱의 버전과 현재 버전을 비교해 버전이 변경되었으면 빈 문자열을 반환한다.
             System.out.println("************************************************* App version changed.");
-            return "";
+            registrationId = "";
         }
         return registrationId;
     }

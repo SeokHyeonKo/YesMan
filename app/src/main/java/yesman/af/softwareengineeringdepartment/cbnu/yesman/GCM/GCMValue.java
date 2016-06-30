@@ -8,7 +8,12 @@ public class GCMValue {
 
     // SharedPreferences에 저장할 때 key 값으로 사용됨
     public static final String PROPERTY_APP_VERSION = "appVersion";
+    public static final String NOTIFICATION = "notification";
+
+
     public static String SENDER_ID = "812448838249";
+    public static String IS_NOTIFICATION = "FALSE";
+
 
 
 }

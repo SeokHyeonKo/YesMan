@@ -23,7 +23,17 @@ public class User {
     private int reliability;
     private ArrayList<Board> BoardList = new ArrayList<Board>();
     private Board currentBoard = null;
+
+    public boolean isExist_already() {
+        return exist_already;
+    }
+
+    public void setExist_already(boolean exist_already) {
+        this.exist_already = exist_already;
+    }
+
     private String regID;
+    private boolean exist_already = false;
 
     public int getDomain_dsign() {
         return domain_dsign;
