@@ -82,6 +82,7 @@
             android:label="관심분야 설정" />
         <activity android:name=".View.mypageAcitivity"
             android:theme="@style/AppTheme.TranslucentActionBar"
+
             />
 
 

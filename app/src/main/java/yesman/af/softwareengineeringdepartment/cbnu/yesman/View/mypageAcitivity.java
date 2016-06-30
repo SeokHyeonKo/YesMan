@@ -31,6 +31,9 @@ public class mypageAcitivity extends ActionBarActivity {
 
         setContentView(helper.createView(this));
         helper.initActionBar(this);
+
+
+
         //s
 
         /*
@@ -52,6 +55,11 @@ public class mypageAcitivity extends ActionBarActivity {
         profilePictureView.setProfileId(id);
         */
     }
+
+
+
+
+
     public void Onclick_interest(View v) {
         Intent intent = new Intent(getApplicationContext(), interestAcitivity.class);
         startActivity(intent);
