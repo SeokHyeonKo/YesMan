@@ -71,7 +71,7 @@ public class LoginAcitivity extends Activity {
         sharedPreference = new SharedPreference(this);
 
         facebookbtn = (Button) findViewById(R.id.facebookbtn);
-
+//dd
         facebookbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
