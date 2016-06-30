@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".interestAcitivity">
+    tools:context=".View.interestAcitivity">
 
     <ImageView
         android:layout_width="100dp"
@@ -59,15 +59,15 @@
         android:id="@+id/domain6"
         android:src="@drawable/lifestyle"
         android:layout_alignTop="@+id/domain7"
-        android:layout_alignEnd="@+id/domain_c3" />
+        android:layout_alignEnd="@+id/textView7" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/domain7"
         android:src="@drawable/entertainment"
-        android:layout_below="@+id/domain4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp" />
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/domain4" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -137,14 +137,13 @@
         android:minWidth="@dimen/demo_button_min_width"
         android:text="다 음"
         android:textColor="@android:color/white"
-        fbutton:buttonColor="@color/fbutton_color_emerald"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
         fbutton:shadowEnabled="true"
         android:onClick="Onclick_next"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/domain5"
-        android:layout_alignEnd="@+id/domain5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/scrollView" />
 
     <ScrollView
         android:layout_width="wrap_content"

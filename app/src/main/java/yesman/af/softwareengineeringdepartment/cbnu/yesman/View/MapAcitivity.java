@@ -20,51 +20,48 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.GPS.GpsInfo;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 public class MapAcitivity extends AppCompatActivity {
-    static final LatLng Center = new LatLng( 35.846777, 127.129375);
+    static final LatLng Center = new LatLng(35.846777, 127.129375);
     private GoogleMap map;
     public String which;
     // 알림창에 들어가는 변수
     final Context context = this;
     private AlertDialog.Builder alert;
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
     private double x;
     private double y;
+    SharedPreference sharedPreference;
 
-                        @Override
-                        protected void onCreate(Bundle savedInstanceState) {
-                            super.onCreate(savedInstanceState);
-                            setContentView(R.layout.activity_map);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
 
-                            MapsInitializer.initialize(getApplicationContext());
-                            GooglePlayServicesUtil.isGooglePlayServicesAvailable(MapAcitivity.this);
-                            map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        sharedPreference = new SharedPreference(this);
+        MapsInitializer.initialize(getApplicationContext());
+        GooglePlayServicesUtil.isGooglePlayServicesAvailable(MapAcitivity.this);
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-                            pref = getSharedPreferences("PrefName", MODE_PRIVATE);  // ID,GPS정보 저장
-                            editor = pref.edit();
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng arg0) {
+                // TODO Auto-generated method stub
 
-                            map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                                @Override
-                                public void onMapClick(LatLng arg0) {
-                                    // TODO Auto-generated method stub
+                MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(arg0.latitude, arg0.longitude));
+                sharedPreference.put(sharedPreference.user_x, String.valueOf(arg0.latitude)); //서버에 넘겨줄 좌표값
+                sharedPreference.put(sharedPreference.user_y,  String.valueOf(arg0.longitude));
+                map.addMarker(markerOptions).showInfoWindow();
+            }
+        });
 
-                        MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(arg0.latitude, arg0.longitude ));
-                        editor.putFloat("x", (float)arg0.latitude); //서버에 넘겨줄 좌표값
-                        editor.putFloat("y", (float)arg0.longitude);
-                        map.addMarker(markerOptions).showInfoWindow();
-                    }
-                 });
-
-                map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
                 map.clear();
             }
         });
-
 
 
         MarkerOptions markerOptions = new MarkerOptions().position(Center);
@@ -77,7 +74,7 @@ public class MapAcitivity extends AppCompatActivity {
         alert.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                    //사용자 위치 선택 받기
+                //사용자 위치 선택 받기
             }
         });
         alert.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -89,9 +86,8 @@ public class MapAcitivity extends AppCompatActivity {
         alert.show();
 
 
-
-
     }
+
     private void init() {
 
         GpsInfo gps = new GpsInfo(MapAcitivity.this);
@@ -99,11 +95,11 @@ public class MapAcitivity extends AppCompatActivity {
         if (gps.isGetLocation()) {
             x = gps.getLatitude();
             y = gps.getLongitude();
-            editor.putFloat("x", (float)x); //서버에 넘겨줄 좌표값
-            editor.putFloat("y", (float)y);
+            sharedPreference.put(sharedPreference.user_x, String.valueOf(x)); //서버에 넘겨줄 좌표값
+            sharedPreference.put(sharedPreference.user_y, String.valueOf(y));
             // Creating a LatLng object for the current location
             LatLng latLng = new LatLng(x, y);
-            
+
             map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             map.animateCamera(CameraUpdateFactory.zoomTo(17));
@@ -120,19 +116,18 @@ public class MapAcitivity extends AppCompatActivity {
             gps.showSettingsAlert();
         }
     }
+
     public void Onclick_next(View v) {
         Intent intent = getIntent();
         int set = intent.getIntExtra("set", 0);
-        if(set == 1){
+        if (set == 1) {
             finish();
-        }
-        else{
+        } else {
             startActivity(new Intent(this, interestAcitivity.class));
         }
         User user = User.getInstance();
         user.setX(x);
         user.setX(y);
-        editor.commit();
     }
 
 }
