@@ -4,22 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginAcitivity">
+    tools:context=".View.LoginAcitivity"
+    android:background="@drawable/login_back">
 
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ScrollView>
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/buttonId"
-        android:layout_width="180dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
+    <Button
+        android:id="@+id/facebookbtn"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:background="@drawable/facebookbtn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="226dp" />
+        android:layout_marginBottom="36dp" />
+
 
 
 </RelativeLayout>

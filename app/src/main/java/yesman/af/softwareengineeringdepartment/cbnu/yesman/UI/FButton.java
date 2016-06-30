@@ -113,9 +113,9 @@ public class FButton extends Button implements View.OnTouchListener {
             if (attr == R.styleable.FButton_shadowEnabled) {
                 isShadowEnabled = typedArray.getBoolean(attr, true); //Default is true
             } else if (attr == R.styleable.FButton_buttonColor) {
-                mButtonColor = typedArray.getColor(attr, R.color.fbutton_default_color);
+                mButtonColor = typedArray.getColor(attr, getResources().getColor(R.color.fbutton_color_peter_river));
             } else if (attr == R.styleable.FButton_shadowColor) {
-                mShadowColor = typedArray.getColor(attr, R.color.fbutton_default_shadow_color);
+                mShadowColor = typedArray.getColor(attr, getResources().getColor(R.color.fbutton_color_peter_river));
                 isShadowColorDefined = true;
             } else if (attr == R.styleable.FButton_shadowHeight) {
                 mShadowHeight = typedArray.getDimensionPixelSize(attr, R.dimen.fbutton_default_shadow_height);
@@ -133,7 +133,7 @@ public class FButton extends Button implements View.OnTouchListener {
         TypedArray ta = context.obtainStyledAttributes(attrs, attrsArray);
         if (ta == null) return;
         mPaddingLeft = ta.getDimensionPixelSize(0, 0);
-        mPaddingRight = ta.getDimensionPixelSize(1, 0);
+        mPaddingRight = ta.getDimensionPixelSize(0, 0);
         ta.recycle();
 
         //Get paddingTop, paddingBottom
@@ -144,7 +144,7 @@ public class FButton extends Button implements View.OnTouchListener {
         TypedArray ta1 = context.obtainStyledAttributes(attrs, attrsArray2);
         if (ta1 == null) return;
         mPaddingTop = ta1.getDimensionPixelSize(0, 0);
-        mPaddingBottom = ta1.getDimensionPixelSize(1, 0);
+        mPaddingBottom = ta1.getDimensionPixelSize(0, 0);
         ta1.recycle();
     }
 
