@@ -40,7 +40,7 @@ public class LoginAcitivity extends Activity {
     private SharedPreference sharedPreference;
     private String userId;
     private String userpassword;
-
+    //ㅇㅇ
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
