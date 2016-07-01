@@ -37,7 +37,7 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 
 public class ShowBoardList_Main extends AppCompatActivity {
-
+    TextView textview9;
     public static int matchingcount = 0;
         public static int seletedtab = 0;  // 0은 재능기부 1은 재능받기
         private SharedPreference sharedPreference;
@@ -49,7 +49,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
         sharedPreference = new SharedPreference(this);
         initUser();
 
-
+            textview9 = (TextView)findViewById(R.id.textView9); // TextView
          RatingBar rb = (RatingBar)findViewById(R.id.ratingbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -209,14 +209,14 @@ public class ShowBoardList_Main extends AppCompatActivity {
         final RatingBar rating = new RatingBar(this);
         rating.setMax(6);
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("Vote!! ");
+        popDialog.setTitle("투표 ");
         popDialog.setView(rating);
 
 // Button OK
         popDialog.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //txtView.setText(String.valueOf(rating.getProgress()));
+                        textview9.setText(String.valueOf(rating.getProgress()));
                         dialog.dismiss();
                     }
                 })
