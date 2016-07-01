@@ -8,6 +8,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/mypage" />
+        android:src="@drawable/left_arrow" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -27,13 +28,13 @@ public class MyBoardList extends ActionBarActivity {
 
         LayoutInflater inflator = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflator.inflate(R.layout.custom_actionbar_myboardlist, null);
+        //View v = inflator.inflate(R.layout.custom_actionbar_myboardlist, null);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled (false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setCustomView(v);
+        //getSupportActionBar().setCustomView(v);
 
         ArrayList<Board> data = new ArrayList<>();
         ListView listView=(ListView)findViewById(R.id.my_boardlist_ListView);
@@ -47,15 +48,18 @@ public class MyBoardList extends ActionBarActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.back_activity, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.mypage_backbtn) {
-            Intent intent = new Intent(this,MyPage.class);
-            startActivity(intent);
+        if (id == R.id.myBoardList_btn) {
+            finish();
             return true;
         }
 
