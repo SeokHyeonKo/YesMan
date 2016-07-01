@@ -163,6 +163,8 @@ public class JsonMaker {
         try {
             jsonobj.put("x", user.getX());
             jsonobj.put("y", user.getY());
+            jsonobj.put("UserId",user.getUserID());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

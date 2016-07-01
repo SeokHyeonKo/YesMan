@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.RegisterBoardActivity;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ContentBoard;
 //으범수정
 /**
  * Created by seokhyeon on 2016-06-26.
@@ -92,7 +92,7 @@ public class GCMIntentService extends IntentService {
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         GCMValue.IS_NOTIFICATION = "TRUE";
-        Intent intent = new Intent(this,RegisterBoardActivity.class);
+        Intent intent = new Intent(this,ContentBoard.class);
         intent.putExtra(GCMValue.NOTIFICATION,GCMValue.IS_NOTIFICATION);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,

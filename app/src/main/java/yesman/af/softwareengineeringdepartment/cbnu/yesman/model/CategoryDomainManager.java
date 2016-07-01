@@ -9,4 +9,9 @@ public class CategoryDomainManager {
     public static final int COMPUTER = 0, DESIGN = 1, DOCUMENT = 2, ENTERTAINMENT = 3, MOVIE_MUSIC =4, MARKETING = 5, LIFE = 6, TRANSLATE = 7;
     public static String title;
     public static String content;
+    public static double x;
+    public static double y;
+    public static int category;
+    public static boolean iscurrent;
+    public static int domain;
 }

@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -30,6 +30,8 @@ public class ShowBoardList_Main extends AppCompatActivity {
     public static int matchingcount = 0;
         public static int seletedtab = 0;  // 0은 재능기부 1은 재능받기
         private SharedPreference sharedPreference;
+    FragmentPagerItemAdapter adapter;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -37,7 +39,8 @@ public class ShowBoardList_Main extends AppCompatActivity {
 
         sharedPreference = new SharedPreference(this);
         initUser();
-
+            ServerManager serverManager = ServerManager.getInstance();
+            serverManager.getDonation_BoardList();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -51,7 +54,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
         fab.setBackgroundResource(R.drawable.messenger_button_white_bg_round);
 
 
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.titleA, Fragment_BoardList_inMain.class)
                 .add(R.string.titleB, Fragment_BoardList_inMain.class)
@@ -63,6 +66,8 @@ public class ShowBoardList_Main extends AppCompatActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
+
+
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
@@ -84,9 +89,31 @@ public class ShowBoardList_Main extends AppCompatActivity {
                 System.out.println("각 탭 포지션 : "+position);
                 seletedtab = position;
                 ServerManager serverManager = ServerManager.getInstance();
+                User.getInstance().setBoardList(null);
                 if(seletedtab==0) serverManager.getDonation_BoardList();
                 else serverManager.getRequest_BoardList();
 
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        if(seletedtab==0){
+                            System.out.println("실행?");
+                            Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(0);
+                            fr.setListViewAdapter();
+
+
+                        }else{
+                            System.out.println("실행?");
+                            Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(1);
+                            fr.setListViewAdapter();
+                        }
+                    }
+                }, 500);
+
+
+                //adapter.notifyDataSetChanged()
                 changeTabsTitleTypeFace(lyTabs, position); // 글자 굵게 하기
             }
             @Override
@@ -94,6 +121,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
             }
         });
 
+            Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(0);
 
     }
 
@@ -134,10 +162,12 @@ public class ShowBoardList_Main extends AppCompatActivity {
 
     private void initUser(){
 
-        float ux = sharedPreference.getValue(sharedPreference.user_x,0);
-        float uy = sharedPreference.getValue(sharedPreference.user_y,0);
-        String uxs = String.valueOf(ux);
-        String uys = String.valueOf(uy);
+
+
+        String uxs =  sharedPreference.getValue(sharedPreference.user_x,"userx");
+        String uys = sharedPreference.getValue(sharedPreference.user_y,"usery");
+        System.out.println("ux "+uxs);
+        System.out.println("uy" +uys);
 
         User.getInstance().setUserID(sharedPreference.getValue(sharedPreference.user_id,"userId"));
         User.getInstance().setUserName(sharedPreference.getValue(sharedPreference.user_name,"username"));
@@ -152,5 +182,6 @@ public class ShowBoardList_Main extends AppCompatActivity {
         User.getInstance().setDomain_service(sharedPreference.getValue(sharedPreference.domain6,0));
         User.getInstance().setDomain_translate(sharedPreference.getValue(sharedPreference.domain1,0));
     }
+
 
 }

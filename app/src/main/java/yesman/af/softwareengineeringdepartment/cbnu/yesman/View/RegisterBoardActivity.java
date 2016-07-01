@@ -21,7 +21,6 @@ import java.util.Date;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.GCM.GCMValue;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 public class RegisterBoardActivity extends Activity
@@ -52,8 +51,8 @@ public class RegisterBoardActivity extends Activity
                             "");
                     user.setX(100);
                     user.setY(125);
-                    Board board = new Board("두번째","사람입니다",new Date(),123.124,231.23);
-                    user.setCurrentDashBoard(board);
+
+
                     user.getCurrentBoard().setBoardserialnumber(81);
 
 

@@ -19,7 +19,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.GPS.GpsInfo;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.CategoryDomainManager;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 public class GoogleMap extends AppCompatActivity {
     private com.google.android.gms.maps.GoogleMap map;
@@ -52,6 +56,8 @@ public class GoogleMap extends AppCompatActivity {
                 map.addMarker(markerOptions).showInfoWindow();
                 x = arg0.latitude;
                 y = arg0.longitude;
+                CategoryDomainManager.x = x;
+                CategoryDomainManager.y = y;
                // sharedPreference.put(sharedPreference.user_x, String.valueOf(arg0.latitude)); //서버에 넘겨줄 좌표값
                 //sharedPreference.put(sharedPreference.user_y, String.valueOf(arg0.longitude));
             }
@@ -75,6 +81,8 @@ public class GoogleMap extends AppCompatActivity {
                 if (gps.isGetLocation()) {
                     x = gps.getLatitude();
                     y = gps.getLongitude();
+                    CategoryDomainManager.x = x;
+                    CategoryDomainManager.y = y;
                     LatLng latLng = new LatLng(x, y);
                     map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
@@ -98,6 +106,8 @@ public class GoogleMap extends AppCompatActivity {
         if (gps.isGetLocation()) {
             x = gps.getLatitude();
             y = gps.getLongitude();
+            CategoryDomainManager.x = x;
+            CategoryDomainManager.y = y;
             //sharedPreference.put(sharedPreference.user_x, String.valueOf(x)); //서버에 넘겨줄 좌표값
             //sharedPreference.put(sharedPreference.user_y, String.valueOf(y));
             // Creating a LatLng object for the current location
@@ -123,13 +133,28 @@ public class GoogleMap extends AppCompatActivity {
 
     public void Onclick_next(View v) {
         Intent intent = getIntent();
-        int set = intent.getIntExtra("set", 0);
+        int set = intent.getIntExtra("set",0);
+        System.out.println("set : "+set);
         if(set == 1) {
+
+            Board board = new Board(CategoryDomainManager.title,CategoryDomainManager.content, CategoryDomainManager.x, CategoryDomainManager.y);
+            board.setCategory(CategoryDomainManager.category);
+            User.getInstance().setCurrentBoard(board);
+
+            ServerManager serverManager = ServerManager.getInstance();
+            serverManager.registerBoard();
             finish();
-        } else {
+        }else if(set==2) { // mypage에서 보내는 경우.
+            User.getInstance().setX(x);
+            User.getInstance().setY(y);
+            ServerManager serverManager = ServerManager.getInstance();
+            serverManager.changeMyLocation();
+            finish();
+        }
+        else{
             sharedPreference = new SharedPreference(this);
-            sharedPreference.put(sharedPreference.user_x,String.valueOf(x));
-            sharedPreference.put(sharedPreference.user_y,String.valueOf(y));
+            sharedPreference.put(sharedPreference.user_x,String.valueOf(CategoryDomainManager.x));
+            sharedPreference.put(sharedPreference.user_y,String.valueOf(CategoryDomainManager.y));
             System.out.println("user x값 : "+x);
             System.out.println("user y값 : "+y);
             startActivity(new Intent(this, interest.class));

@@ -2,16 +2,25 @@ package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.MyFadingActionBarHelper;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 public class MyPage extends ActionBarActivity {
 
@@ -20,10 +29,26 @@ public class MyPage extends ActionBarActivity {
     private TextView tv_home_user_name;
     private ProfilePictureView profilePictureView;
     private ProgressDialog mProgressDialog;
+    private  RatingBar rating;
+    private TextView point_txt;
+    private CardView changeInterstedbtn;
+    private CardView changeLocationbtn;
+
+    private ImageView computer;
+    private  ImageView marketing;
+    private ImageView music_video;
+    private ImageView design;
+    private ImageView document;
+    private ImageView translate;
+    private ImageView life;
+    private ImageView entertainment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        profile = Profile.getCurrentProfile();
+
 
         MyFadingActionBarHelper helper = new MyFadingActionBarHelper()
                 .actionBarBackground(R.drawable.computer)
@@ -32,6 +57,57 @@ public class MyPage extends ActionBarActivity {
 
         setContentView(helper.createView(this));
         helper.initActionBar(this);
+
+        ProfilePictureView profilePictureView = (ProfilePictureView)findViewById(R.id.home_profile_image_facebook);
+        SharedPreferences pref = getSharedPreferences("PrefName", MODE_PRIVATE);
+        String id = pref.getString("USER_ID", "NULL");
+        SharedPreference sharedPreference = new SharedPreference(this);
+
+        System.out.println("facebook 아이디 : "+id);
+        profilePictureView.setProfileId(id);
+
+
+        TextView user_txt = (TextView)findViewById(R.id.user_name);
+        user_txt.setText(User.getInstance().getUserName());
+        point_txt = (TextView)findViewById(R.id.mypage_pointtextview);
+        rating = (RatingBar)findViewById(R.id.ratingBaruser);
+
+        changeInterstedbtn = (CardView)findViewById(R.id.chage_interestetedbtn_mypage);
+        changeInterstedbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPage.this,interest.class);
+                intent.putExtra("set",1);
+                startActivity(intent);
+            }
+        });
+
+        changeLocationbtn = (CardView)findViewById(R.id.change_mylocationbtn_mypage);
+        changeLocationbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPage.this,GoogleMap.class);
+                intent.putExtra("set",2);
+                startActivity(intent);
+            }
+        });
+
+
+        ServerManager serverManager = ServerManager.getInstance();
+        serverManager.getMyInformation();
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                int reliability = User.getInstance().getReliability();
+                rating.setNumStars(reliability);
+                int point = User.getInstance().getPoint();
+                point_txt.setText(String.valueOf(point));
+
+            }
+        }, 500);
 
 
 

@@ -55,7 +55,7 @@ public class Write extends AppCompatActivity {
         registerbtn = (Button)findViewById(R.id.registerbtn_write);
         cancelbtn = (Button)findViewById(R.id.cancel_btn_write);
 
-        request_btn.setOnClickListener(new View.OnClickListener() {
+        registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 title = title_text.getText().toString();
@@ -133,21 +133,33 @@ public class Write extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Action for 'Yes' Button
+                        CategoryDomainManager.iscurrent = false;
+                        CategoryDomainManager.title = title;
+                        CategoryDomainManager.content = content;
+                        CategoryDomainManager.category = category;
+                        CategoryDomainManager.domain = domain;
                         Intent intent = new Intent(Write.this,GoogleMap.class);
                         intent.putExtra("set",1);
-
+                        startActivity(intent);
+                        finish();
                     }
                 }).setNegativeButton("아니오",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Action for 'NO' Button
-
+                        CategoryDomainManager.iscurrent = true;
                         SharedPreference sharedPreference = new SharedPreference(context);
-                        Board board = new Board(title,content,sharedPreference.getValue(sharedPreference.user_x,0.0),sharedPreference.getValue(sharedPreference.user_y,0.0));
+                        String ux = sharedPreference.getValue(sharedPreference.user_x,"");
+                        String uy = sharedPreference.getValue(sharedPreference.user_y,"");
+
+                        Board board = new Board(title,content,Double.parseDouble(ux),Double.parseDouble(uy));
+                        board.setCategory(category);
+                        board.setDomain(domain);
                         User.getInstance().setCurrentBoard(board);
                         ServerManager serverManager = ServerManager.getInstance();
                         serverManager.registerBoard();
                         dialog.cancel();
+                        finish();
                     }
                 });
         AlertDialog alert = alt_bld.create();

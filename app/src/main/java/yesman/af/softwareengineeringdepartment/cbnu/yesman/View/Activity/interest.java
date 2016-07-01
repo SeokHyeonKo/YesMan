@@ -100,50 +100,61 @@ public class interest extends AppCompatActivity {
         }
 
 
-        ServerManager severmanager = ServerManager.getInstance();
-        initUser(); // 초기 user setting;
-        User user = User.getInstance();
-        System.out.println("-------유저확인--------");
-        System.out.println(user.getUserID()+","+user.getUserName());
+        if(getIntent().hasExtra("set")){
+            ServerManager serverManager = ServerManager.getInstance();
 
 
 
-        gcm = GoogleCloudMessaging.getInstance(context);
-        System.out.println("************************************************* gcm 발급");
-        registerInBackground();
-        storeRegistrationId(context, regid);
+        }else{
+            ServerManager severmanager = ServerManager.getInstance();
+            initUser(); // 초기 user setting;
+            User user = User.getInstance();
+            System.out.println("-------유저확인--------");
+            System.out.println(user.getUserID()+","+user.getUserName());
 
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
+
+
+            gcm = GoogleCloudMessaging.getInstance(context);
+            System.out.println("************************************************* gcm 발급");
+            registerInBackground();
+            storeRegistrationId(context, regid);
+
+            new Handler().postDelayed(new Runnable()
             {
-                ServerManager a = new ServerManager();
-                a.joinUser();
-            }
-        }, 300);
+                @Override
+                public void run()
+                {
+                    ServerManager a = new ServerManager();
+                    a.joinUser();
+                }
+            }, 300);
 
 
 
-        // 체크할때 http 통신을 기달려 줘야한다.
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
+            // 체크할때 http 통신을 기달려 줘야한다.
+            new Handler().postDelayed(new Runnable()
             {
-                User.getInstance().setRegID(getRegistrationId(context)); // 기존에 발급받은 등록 아이디를 가져온다
-                startActivity(new Intent(interest.this, ShowBoardList_Main.class));
-            }
-        }, 600);
+                @Override
+                public void run()
+                {
+                    User.getInstance().setRegID(getRegistrationId(context)); // 기존에 발급받은 등록 아이디를 가져온다
+                    startActivity(new Intent(interest.this, ShowBoardList_Main.class));
+                }
+            }, 600);
+        }
+
+
 
     }
 
     private void initUser(){
 
-        float ux = sharedPreference.getValue(sharedPreference.user_x,0);
-        float uy = sharedPreference.getValue(sharedPreference.user_y,0);
-        String uxs = String.valueOf(ux);
-        String uys = String.valueOf(uy);
+
+
+        String uxs =  sharedPreference.getValue(sharedPreference.user_x,"userx");
+        String uys = sharedPreference.getValue(sharedPreference.user_y,"usery");
+        System.out.println("ux "+uxs);
+        System.out.println("uy" +uys);
 
         User.getInstance().setUserID(sharedPreference.getValue(sharedPreference.user_id,"userId"));
         User.getInstance().setUserName(sharedPreference.getValue(sharedPreference.user_name,"username"));

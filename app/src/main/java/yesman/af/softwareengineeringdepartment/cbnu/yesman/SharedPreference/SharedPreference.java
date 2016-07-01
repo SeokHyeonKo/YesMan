@@ -59,19 +59,6 @@ public class SharedPreference{
         }
     }
 
-    public float getValue(String key, double dftValue){
-        try {
-            String d = String.valueOf(dftValue);
-            float f = Float.parseFloat(d);
-            return sharedPreferences.getFloat(key,f);
-        } catch (Exception e) {
-            // TODO: handle exception
-            String d = String.valueOf(dftValue);
-            float f = Float.parseFloat(d);
-            return f;
-        }
-    }
-
     public int getValue(String key, int dftValue) {
         try {
             return sharedPreferences.getInt(key, dftValue);
