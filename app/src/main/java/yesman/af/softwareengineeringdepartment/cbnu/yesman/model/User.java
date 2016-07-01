@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class User {
     private static User user = null;
+
+    private String userName;
     private String userID;
     private double x;
     private double y;
@@ -177,9 +179,21 @@ public class User {
         return currentBoard;
     }
 
+
     public String getUserID(){
         return userID;
     }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
 
     public static synchronized User getInstance(){
         if(user==null){

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 /**
  * Created by seokhyeon on 2016-06-25.
@@ -26,6 +27,7 @@ public class DataMakerbyJson {
         ArrayList<Board> boardlist = new ArrayList<>();
 
        JSONObject jobj = null;
+
 
         try {
             jobj = new JSONObject(response);
@@ -73,6 +75,7 @@ public class DataMakerbyJson {
             JSONObject json = new JSONObject(response);
             Log.w("그전 값 확인 : ",Boolean.toString(json.getBoolean("exist")));
             if(json.getBoolean("exist")) isExist = true;
+            User.getInstance().setExist_already(true);
 
             Log.w("값 확인 ",Boolean.toString(isExist));
          } catch (JSONException e) {

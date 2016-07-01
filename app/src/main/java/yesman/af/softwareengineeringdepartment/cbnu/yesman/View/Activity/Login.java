@@ -23,6 +23,7 @@ import com.facebook.login.LoginResult;
 import java.util.Arrays;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
@@ -96,9 +97,40 @@ public class Login extends Activity {
                                     sharedPreference.put (sharedPreference.user_name, user_name);
                                     Log.d("FaceBook :::", "id : " + user_Id);
                                     Log.d("FaceBook :::", "name : " + user_name);
+                                    User.getInstance().setUserID(user_Id);
+
+                                    ServerManager servermanager = ServerManager.getInstance();
+                                    System.out.println("유저를 체크합니다----------------");
+                                    servermanager.checkUser();
+
+                                    // 체크할때 http 통신을 기달려 줘야한다.
+                                    new Handler().postDelayed(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            if(User.getInstance().isExist_already()==true) System.out.println("유저가 존재 합니다........");
+                                            else System.out.println("유저가 존재 하지 않습니다........");
+
+                                            if(User.getInstance().isExist_already()==false){
+                                                Intent mainIntent = new Intent(Login.this, GoogleMap.class);
+                                                startActivity(mainIntent);
+                                                finish();
+                                            }else{
+                                                Intent mainIntent = new Intent(Login.this, ShowBoardList_Main.class);
+                                                startActivity(mainIntent);
+                                                finish();
+                                            }
+
+                                        }
+                                    }, 500);
+
+
+
+
                                 }
                             }, 500);
-                            user.setUserID(user_Id);
+
                                 /*
                                 //사용 디바이스 핸드폰 번호 알아오기
                                 TelephonyManager systemService = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -121,9 +153,8 @@ public class Login extends Activity {
                             /** SharedPreferences로 Facbook 정보 저장*/
                                 /* 로그인될 시 세션을 유지하기 위해 환경 변수에 facebook login session 관리를 저장한다. */
                             sharedPreference.put(sharedPreference.facebook_login, "LOGIN");
-                            Intent mainIntent = new Intent(Login.this, GoogleMap.class);
-                            startActivity(mainIntent);
-                            finish();
+
+
                         }
                         @Override
                         public void onCancel() {

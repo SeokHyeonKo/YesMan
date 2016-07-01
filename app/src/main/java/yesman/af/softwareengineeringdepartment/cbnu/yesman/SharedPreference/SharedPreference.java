@@ -28,6 +28,7 @@ public class SharedPreference{
     public String user_name = "USER_NAME";    //유저 y좌표
     public String user_x = "x";    //유저 x좌표
     public String user_y = "y";    //유저 y좌표
+    public String reg_id = "USER_REG";
 
     public SharedPreference(Context context) {
         this.sharedPreferences = context.getSharedPreferences(PREF_NAME, Activity.MODE_PRIVATE);
@@ -55,6 +56,19 @@ public class SharedPreference{
         } catch (Exception e) {
             // TODO: handle exception
             return dftValue;
+        }
+    }
+
+    public float getValue(String key, double dftValue){
+        try {
+            String d = String.valueOf(dftValue);
+            float f = Float.parseFloat(d);
+            return sharedPreferences.getFloat(key,f);
+        } catch (Exception e) {
+            // TODO: handle exception
+            String d = String.valueOf(dftValue);
+            float f = Float.parseFloat(d);
+            return f;
         }
     }
 

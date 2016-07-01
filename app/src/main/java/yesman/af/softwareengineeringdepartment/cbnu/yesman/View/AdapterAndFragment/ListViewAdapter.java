@@ -21,6 +21,7 @@ public class ListViewAdapter extends BaseAdapter {
     private ArrayList<Board> data;
     private int layout;
 
+
     public ListViewAdapter(Context context, int layout, ArrayList<Board> data){
         this.inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.data=data;

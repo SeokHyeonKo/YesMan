@@ -32,11 +32,6 @@
 
 
         <activity android:name=".View.RegisterBoardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
         </activity>
         <!-- GCM 리시버 -->
         <receiver
@@ -86,6 +81,11 @@
 
         <!-- 처음 시작 화면 -->
         <activity android:name=".View.Activity.SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
         </activity>
 
         <!-- 관심분야 설정 -->

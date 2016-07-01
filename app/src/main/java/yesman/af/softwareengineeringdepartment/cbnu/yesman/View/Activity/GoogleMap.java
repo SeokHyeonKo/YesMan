@@ -20,7 +20,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.GPS.GpsInfo;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 public class GoogleMap extends AppCompatActivity {
     private com.google.android.gms.maps.GoogleMap map;
@@ -130,9 +129,12 @@ public class GoogleMap extends AppCompatActivity {
         } else {
             startActivity(new Intent(this, interest.class));
         }
-        User user = User.getInstance();
-        user.setX(x);
-        user.setX(y);
+
+        sharedPreference = new SharedPreference(this);
+        sharedPreference.put(sharedPreference.user_x,String.valueOf(x));
+        sharedPreference.put(sharedPreference.user_y,String.valueOf(y));
+        System.out.println("user x값 : "+x);
+        System.out.println("user y값 : "+y);
     }
 
 }

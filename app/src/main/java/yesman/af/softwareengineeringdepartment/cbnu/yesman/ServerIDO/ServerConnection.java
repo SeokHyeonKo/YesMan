@@ -3,6 +3,7 @@ package yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -77,18 +78,36 @@ public class ServerConnection extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         // UI 업데이트가 구현될 부분
-
+        System.out.println("result값 : "+result);
         if(result!=null && (JsonMaker.getInstance().getSeleted()==JsonMaker.GET_REQUSET_LIST
                 || JsonMaker.getInstance().getSeleted()==JsonMaker.GET_DONATION_LIST
                 || JsonMaker.getInstance().getSeleted()==JsonMaker.CHECK_MYBOARDLIST)){
-            User.getInstance().setBoardList(DataMakerbyJson.getDataMaker().getBoardList(result));
-            ArrayList<Board> arr = User.getInstance().getBoardList();
-            for(int i=0;i<arr.size();i++){
-                System.out.println(arr.get(i).getContent());
-                System.out.println(arr.get(i).getAcceptID());
-                System.out.println(arr.get(i).getDomain());
-                System.out.println(arr.get(i).getX());
 
+            boolean isbe = true;
+
+            try {
+                JSONObject checkobj = new JSONObject(result);
+
+                 System.out.println("1"+checkobj.getString("data")+"1");
+
+                if(checkobj.getString("data").equals("null")) isbe = false;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if(isbe){
+                User.getInstance().setBoardList(DataMakerbyJson.getDataMaker().getBoardList(result));
+
+
+                ArrayList<Board> arr = User.getInstance().getBoardList();
+                for(int i=0;i<arr.size();i++){
+                    System.out.println(arr.get(i).getContent());
+                    System.out.println(arr.get(i).getAcceptID());
+                    System.out.println(arr.get(i).getDomain());
+                    System.out.println(arr.get(i).getX());
+
+                }
             }
         }
 
