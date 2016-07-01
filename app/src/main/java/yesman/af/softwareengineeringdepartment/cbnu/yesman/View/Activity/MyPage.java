@@ -1,4 +1,4 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,8 +11,9 @@ import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.MyFadingActionBarHelper;
 
-public class mypageAcitivity extends ActionBarActivity {
+public class MyPage extends ActionBarActivity {
 
     private Profile profile;
     private TextView tv_home_user_id;
@@ -26,8 +27,8 @@ public class mypageAcitivity extends ActionBarActivity {
 
         MyFadingActionBarHelper helper = new MyFadingActionBarHelper()
                 .actionBarBackground(R.drawable.computer)
-                .headerLayout(R.layout.myapge_header)
-                .contentLayout(R.layout.mypage_activity);
+                .headerLayout(R.layout.header_mypage)
+                .contentLayout(R.layout.activity_mypage_layout);
 
         setContentView(helper.createView(this));
         helper.initActionBar(this);
@@ -61,12 +62,12 @@ public class mypageAcitivity extends ActionBarActivity {
 
 
     public void Onclick_interest(View v) {
-        Intent intent = new Intent(getApplicationContext(), interestAcitivity.class);
+        Intent intent = new Intent(getApplicationContext(), interest.class);
         startActivity(intent);
     }
 
     public void Onclick_GPS(View v) {
-        Intent intent = new Intent(getApplicationContext(), MapAcitivity.class);
+        Intent intent = new Intent(getApplicationContext(), GoogleMap.class);
         intent.putExtra("set", 1);
         startActivity(intent);
     }

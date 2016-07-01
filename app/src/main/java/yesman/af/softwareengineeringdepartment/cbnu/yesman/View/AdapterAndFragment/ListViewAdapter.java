@@ -1,4 +1,4 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment;
 
 import android.content.Context;
 import android.view.LayoutInflater;

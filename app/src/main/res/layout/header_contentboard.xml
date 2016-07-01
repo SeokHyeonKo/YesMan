@@ -9,7 +9,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:id="@+id/header_image"
-        android:src="@drawable/cat2"/>
+        android:src="@drawable/computer"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"

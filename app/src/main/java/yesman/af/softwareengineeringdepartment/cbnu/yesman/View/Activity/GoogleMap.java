@@ -1,10 +1,9 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.view.View;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -24,8 +22,8 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
-public class MapAcitivity extends AppCompatActivity {
-    private GoogleMap map;
+public class GoogleMap extends AppCompatActivity {
+    private com.google.android.gms.maps.GoogleMap map;
     public String which;
     // 알림창에 들어가는 변수
     final Context context = this;
@@ -37,14 +35,14 @@ public class MapAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
-        gps = new GpsInfo(MapAcitivity.this);
+        setContentView(R.layout.activity_googlemap_layout);
+        gps = new GpsInfo(GoogleMap.this);
         sharedPreference = new SharedPreference(this);
         MapsInitializer.initialize(getApplicationContext());
-        GooglePlayServicesUtil.isGooglePlayServicesAvailable(MapAcitivity.this);
+        GooglePlayServicesUtil.isGooglePlayServicesAvailable(GoogleMap.this);
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        map.setOnMapClickListener(new com.google.android.gms.maps.GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng arg0) {
                 // TODO Auto-generated method stub
@@ -58,7 +56,7 @@ public class MapAcitivity extends AppCompatActivity {
             }
         });
 
-        map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        map.setOnMapLongClickListener(new com.google.android.gms.maps.GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
                 map.clear();
@@ -130,7 +128,7 @@ public class MapAcitivity extends AppCompatActivity {
         if (set == 1) {
             finish();
         } else {
-            startActivity(new Intent(this, interestAcitivity.class));
+            startActivity(new Intent(this, interest.class));
         }
         User user = User.getInstance();
         user.setX(x);

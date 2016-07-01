@@ -1,4 +1,4 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,13 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.MyFadingActionBarHelper;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 
 
 /**
  * Created by Jo on 2016-06-30.
  */
-public class DetailBoardActivity extends ActionBarActivity {
+public class ContentBoard extends ActionBarActivity {
 
     private Board selectedBoard;
     TextView title;
@@ -26,7 +27,7 @@ public class DetailBoardActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_board);
+        setContentView(R.layout.activity_contentboard_layout);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -35,13 +36,13 @@ public class DetailBoardActivity extends ActionBarActivity {
 
         MyFadingActionBarHelper helper = new MyFadingActionBarHelper()
                 .actionBarBackground(new ColorDrawable(Color.parseColor("#6799FF")))
-                .headerLayout(R.layout.board_header)
-                .contentLayout(R.layout.detail_board);
+                .headerLayout(R.layout.header_contentboard)
+                .contentLayout(R.layout.activity_contentboard_layout);
             setContentView(helper.createView(this));
 
         //이미지 변경
         ImageView domain = (ImageView)findViewById(R.id.header_image);
-        domain.setImageResource(R.drawable.cat2);
+        domain.setImageResource(R.drawable.computer);
 
         helper.initActionBar(this);
 

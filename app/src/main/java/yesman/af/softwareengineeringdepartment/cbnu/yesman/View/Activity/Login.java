@@ -1,16 +1,10 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,16 +19,14 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import java.util.Arrays;
-import java.util.regex.Pattern;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
-public class LoginAcitivity extends Activity {
+public class Login extends Activity {
 
     private CallbackManager callbackManager;
     /* facebook profile */
@@ -51,7 +43,7 @@ public class LoginAcitivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_facebook__login);
+        setContentView(R.layout.activity_login_layout);
         callbackManager = CallbackManager.Factory.create();
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -72,33 +64,41 @@ public class LoginAcitivity extends Activity {
 
         facebookbtn = (Button) findViewById(R.id.facebookbtn);
 //dd
-        facebookbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //LoginManager - 요청된 읽기 또는 게시 권한으로 로그인 절차를 시작합니다.
-                LoginManager.getInstance().logInWithReadPermissions(LoginAcitivity.this,
-                        Arrays.asList("public_profile", "user_friends"));
-                LoginManager.getInstance().registerCallback(callbackManager,
-                        new FacebookCallback<LoginResult>() {
-                            @Override
-                            public void onSuccess(LoginResult loginResult) {
-                                User user = User.getInstance();
-                                AccessToken.setCurrentAccessToken(loginResult.getAccessToken());
+        facebookbtn.setOnClickListener(facebookLoginListener);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private View.OnClickListener facebookLoginListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //LoginManager - 요청된 읽기 또는 게시 권한으로 로그인 절차를 시작합니다.
+            LoginManager.getInstance().logInWithReadPermissions(Login.this,
+                    Arrays.asList("public_profile", "user_friends"));
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            User user = User.getInstance();
+                            AccessToken.setCurrentAccessToken(loginResult.getAccessToken());
                                 /* 페이스북 프로필을 가져온다*/
-                                Handler mHandler = new Handler();
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        profile = Profile.getCurrentProfile();
-                                        user_Id = profile.getId();
-                                        user_name = profile.getName();
-                                        sharedPreference.put(sharedPreference.user_id, user_Id);
-                                        sharedPreference.put (sharedPreference.user_name, user_name);
-                                        Log.d("FaceBook :::", "id : " + user_Id);
-                                        Log.d("FaceBook :::", "name : " + user_name);
-                                    }
-                                }, 500);
-                                user.setUserID(user_Id);
+                            Handler mHandler = new Handler();
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    profile = Profile.getCurrentProfile();
+                                    user_Id = profile.getId();
+                                    user_name = profile.getName();
+                                    sharedPreference.put(sharedPreference.user_id, user_Id);
+                                    sharedPreference.put (sharedPreference.user_name, user_name);
+                                    Log.d("FaceBook :::", "id : " + user_Id);
+                                    Log.d("FaceBook :::", "name : " + user_name);
+                                }
+                            }, 500);
+                            user.setUserID(user_Id);
                                 /*
                                 //사용 디바이스 핸드폰 번호 알아오기
                                 TelephonyManager systemService = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -118,30 +118,24 @@ public class LoginAcitivity extends Activity {
                                     }
                                 }
                                 */
-                                /** SharedPreferences로 Facbook 정보 저장*/
+                            /** SharedPreferences로 Facbook 정보 저장*/
                                 /* 로그인될 시 세션을 유지하기 위해 환경 변수에 facebook login session 관리를 저장한다. */
-                                sharedPreference.put(sharedPreference.facebook_login, "LOGIN");
-                                Intent mainIntent = new Intent(LoginAcitivity.this, MapAcitivity.class);
-                                startActivity(mainIntent);
-                                finish();
-                            }
-                            @Override
-                            public void onCancel() {
-                                Toast.makeText(LoginAcitivity.this, "페이스북 로그인이 취소 되었습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                            @Override
-                            public void onError(FacebookException exception) {
-                                Toast.makeText(LoginAcitivity.this, "페이스북 로그인이 취소 되었습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        });
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+                            sharedPreference.put(sharedPreference.facebook_login, "LOGIN");
+                            Intent mainIntent = new Intent(Login.this, GoogleMap.class);
+                            startActivity(mainIntent);
+                            finish();
+                        }
+                        @Override
+                        public void onCancel() {
+                            Toast.makeText(Login.this, "페이스북 로그인이 취소 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onError(FacebookException exception) {
+                            Toast.makeText(Login.this, "페이스북 로그인이 취소 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    };
 }
 
 

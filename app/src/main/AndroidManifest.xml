@@ -59,40 +59,45 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBy28KiCfS7hOQDNJGSY6FUoKa3pKm4g5c" />
+            android:value="AIzaSyDGbzYI4Rcs3YnqB0-wUH4QgD4Fpl5Tf1g" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".View.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".View.Activity.ShowBoardList_Main">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
-        <activity android:name=".View.DetailBoardActivity"
-            android:parentActivityName=".View.MainActivity" >>
+        <activity android:name=".View.Activity.ContentBoard"
+            android:parentActivityName=".View.Activity.ShowBoardList_Main" >>
         </activity>
-        <activity android:name=".View.SplashActivity" />
+        <activity android:name=".View.Activity.SplashActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
-            android:name=".View.interestAcitivity"
+            android:name=".View.Activity.interest"
             android:label="관심분야 설정" />
-        <activity android:name=".View.mypageAcitivity"
+        <activity android:name=".View.Activity.MyPage"
             android:theme="@style/AppTheme.TranslucentActionBar"
 
             />
 
 
-        <activity android:name=".View.MapAcitivity"
+        <activity android:name=".View.Activity.GoogleMap"
             android:label="사용자 위치 설정"/>
-        <activity android:name=".View.LoginAcitivity"
+        <activity android:name=".View.Activity.Login"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".View.GCMtestActivity"
             android:label="@string/title_activity_gcmtest"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".View.Activity.MyBoardList"
+            ></activity>
     </application>
 
 </manifest>

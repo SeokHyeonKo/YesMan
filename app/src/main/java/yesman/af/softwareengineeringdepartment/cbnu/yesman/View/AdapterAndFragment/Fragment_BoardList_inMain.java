@@ -1,4 +1,4 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,18 +13,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ContentBoard;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 
 /**
  * Created by Jo on 2016-06-26.
  */
-public class BoardList_Fragment extends Fragment {
+public class Fragment_BoardList_inMain extends Fragment {
 
     ArrayList<Board> data=new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_listview, container, false);
+        View view = inflater.inflate(R.layout.listview_fragment, container, false);
 
         ListView listView=(ListView)view.findViewById(R.id.board_list);
 
@@ -44,7 +45,7 @@ public class BoardList_Fragment extends Fragment {
         data.add(item6);
         data.add(item7);
         System.out.println("들어옴?");
-        ListViewAdapter adapter = new ListViewAdapter(getActivity(), R.layout.list_content, data);
+        ListViewAdapter adapter = new ListViewAdapter(getActivity(), R.layout.content_listview_showboarlist_main, data);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
 
@@ -57,7 +58,7 @@ public class BoardList_Fragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // TODO Auto-generated method stub
 
-            Intent detailBoard = new Intent(getActivity(), DetailBoardActivity.class);
+            Intent detailBoard = new Intent(getActivity(), ContentBoard.class);
             detailBoard.putExtra("selected", data.get(position));
             getContext().startActivity(detailBoard);
         }

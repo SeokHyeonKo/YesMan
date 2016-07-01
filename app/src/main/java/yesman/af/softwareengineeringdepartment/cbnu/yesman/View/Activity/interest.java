@@ -1,4 +1,4 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
-public class interestAcitivity extends AppCompatActivity {
+public class interest extends AppCompatActivity {
 
     private SharedPreference sharedPreference;
     private CheckBox domain0;   //디자인
@@ -28,7 +28,7 @@ public class interestAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interest);
+        setContentView(R.layout.activity_interest_layout);
         success_button = (FButton) findViewById(R.id.success_button);
 
         domain0 = (CheckBox) findViewById(R.id.domain_c0);
@@ -93,6 +93,6 @@ public class interestAcitivity extends AppCompatActivity {
         //ServerManager severmanager = ServerManager.getInstance();
         //severmanager.joinUser();
 
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, ShowBoardList_Main.class));
     }
 }

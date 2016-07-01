@@ -1,4 +1,4 @@
-package yesman.af.softwareengineeringdepartment.cbnu.yesman.View;
+package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -16,14 +16,15 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.Fragment_BoardList_inMain;
 
 
-public class MainActivity extends AppCompatActivity {
+public class ShowBoardList_Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
+        setContentView(R.layout.activity_showboardlist_main_biglayout);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -39,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.titleA, BoardList_Fragment.class)
-                .add(R.string.titleB, BoardList_Fragment.class)
+                .add(R.string.titleA, Fragment_BoardList_inMain.class)
+                .add(R.string.titleB, Fragment_BoardList_inMain.class)
                 .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -67,7 +68,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.mypage_btn) {
-            Intent intent = new Intent(this,mypageAcitivity.class);
+            Intent intent = new Intent(this,MyPage.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.myBoardList_btn) {
+            Intent intent = new Intent(this,MyBoardList.class);
             startActivity(intent);
             return true;
         }

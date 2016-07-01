@@ -9,7 +9,7 @@
     tools:context="yesman.af.softwareengineeringdepartment.cbnu.yesman.View.GCMtestActivity"
     >
 
-    <include layout="@layout/activity_main" />
+    <include layout="@layout/activity_showboardlist_main_inlayout" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
