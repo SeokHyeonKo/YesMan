@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,12 +48,15 @@ public class RegisterBoardActivity extends Activity
 
                     user = User.getInstance();
 
-                    user.setUserID("2222222" +
+                    user.setUserID("111111111" +
                             "");
                     user.setX(100);
                     user.setY(125);
                     Board board = new Board("두번째","사람입니다",new Date(),123.124,231.23);
                     user.setCurrentDashBoard(board);
+                    user.getCurrentBoard().setBoardserialnumber(81);
+
+
 
 
 
@@ -62,7 +64,7 @@ public class RegisterBoardActivity extends Activity
                     //서버 접근하여 아이디가 없는지 있는지 확인하여야함
                     //잠재적 오류 나중에 코딩해야함!!!!!
 
-
+                    /*
                     System.out.println("유저를 체크합니다----------------");
                     ServerManager a = new ServerManager();
                     a.checkUser();
@@ -88,7 +90,7 @@ public class RegisterBoardActivity extends Activity
 
                         }
                     }, 500);
-
+                    */
 
 
                     System.out.println("regid : "+regid);
@@ -104,14 +106,9 @@ public class RegisterBoardActivity extends Activity
                     registerBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ServerManager a  = ServerManager.getInstance();
+                            ServerManager a = new ServerManager();
+                            a.checkMatching();
 
-
-                            // Board dashBoard = new Board(title,content,date,x,y);
-
-
-
-                            a.registerBoard();
 
                      }
                  });

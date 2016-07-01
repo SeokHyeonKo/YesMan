@@ -19,6 +19,7 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 
 
 public class MyBoardList extends ActionBarActivity {
+    public static int opponetReliability  = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

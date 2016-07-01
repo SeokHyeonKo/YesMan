@@ -12,6 +12,42 @@ public class ServerManager {
     private String path;
     private String url = "http://kossi.iptime.org:2000/YesManProject";
 
+    public void checkMatching(){
+        path ="/checkMatching";
+        JsonMaker.getInstance().setSeleted(JsonMaker.CHECK_MATCHING);
+        checkTask();
+        server.execute(url+path);
+    }
+
+    public void cancelboard(){
+        path ="/cancelboard";
+        JsonMaker.getInstance().setSeleted(JsonMaker.ACCEPT_BOARD);
+        checkTask();
+        server.execute(url+path);
+    }
+
+    public void acceptBoard(){
+        path ="/acceptboard";
+        JsonMaker.getInstance().setSeleted(JsonMaker.ACCEPT_BOARD);
+        checkTask();
+        server.execute(url+path);
+    }
+
+
+    public void registerReliAbility(){
+        path ="/registerreliability";
+        JsonMaker.getInstance().setSeleted(JsonMaker.REGISTER_RELIABILITY);
+        checkTask();
+        server.execute(url+path);
+    }
+
+    public void getMyInformation(){
+        path="/getmyinformation";
+        JsonMaker.getInstance().setSeleted(JsonMaker.GET_MY_INFORMATION);
+        checkTask();
+        server.execute(url+path);
+    }
+
 
     public void checkUser(){
         path="/checkuser";

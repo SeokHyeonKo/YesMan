@@ -10,6 +10,7 @@ public class Board implements Serializable{
     private int boardserialnumber;
     private double x;
     private double y;
+    private String UserId;
     private String title;
     private String content;
     private int domain;
@@ -33,7 +34,8 @@ public class Board implements Serializable{
 
     //보드 리스트를 가져오기 위한 생성자
     public Board(int boardserialnumber, double x, double y, String title, String content,
-                 int domain, String requestID, String acceptID, int category, int ischeckrequest, int ischeckaccept, int ismatching, Date date) {
+                 int domain, String requestID, String acceptID, int category, int ischeckrequest, int ischeckaccept, int ismatching, Date date
+                ,String UserId) {
         this.boardserialnumber = boardserialnumber;
         this.x = x;
         this.y = y;
@@ -47,8 +49,16 @@ public class Board implements Serializable{
         this.ischeckaccept = ischeckaccept;
         this.ismatching = ismatching;
         this.date = date;
+        this.UserId = UserId;
     }
 
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
     public int getDomain() {
         return domain;
     }

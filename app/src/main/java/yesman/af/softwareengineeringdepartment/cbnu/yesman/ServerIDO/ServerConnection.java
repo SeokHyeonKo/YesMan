@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.JSON.DataMakerbyJson;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.JSON.JsonMaker;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ShowBoardList_Main;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
@@ -96,6 +97,15 @@ public class ServerConnection extends AsyncTask<String, String, String> {
             System.out.println(result);
             User.getInstance().setExist_already(DataMakerbyJson.getDataMaker().chekUser(result));
 
+        }
+
+        if(JsonMaker.getInstance().getSeleted()==JsonMaker.GET_MY_INFORMATION){
+            User.getInstance().setPoint(DataMakerbyJson.getDataMaker().getPoint(result));
+            User.getInstance().setReliability(DataMakerbyJson.getDataMaker().getReliability(result));
+        }
+
+        if(JsonMaker.getInstance().getSeleted()==JsonMaker.CHECK_MATCHING){
+            ShowBoardList_Main.matchingcount = DataMakerbyJson.getDataMaker().chekMatchingCount(result);
         }
 
 
