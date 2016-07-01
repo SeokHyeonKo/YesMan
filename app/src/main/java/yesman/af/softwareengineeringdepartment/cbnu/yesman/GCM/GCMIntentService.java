@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ContentBoard;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.RegisterBoardActivity;
 //으범수정
 /**

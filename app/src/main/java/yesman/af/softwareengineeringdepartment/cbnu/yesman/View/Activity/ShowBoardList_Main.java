@@ -1,22 +1,33 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
+import org.w3c.dom.Text;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
@@ -31,7 +42,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
         public static int seletedtab = 0;  // 0은 재능기부 1은 재능받기
         private SharedPreference sharedPreference;
     FragmentPagerItemAdapter adapter;
-
+        private TextView textview9;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -42,6 +53,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
             ServerManager serverManager = ServerManager.getInstance();
             serverManager.getDonation_BoardList();
 
+            textview9 = (TextView) findViewById(R.id.textView9);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +235,10 @@ public class ShowBoardList_Main extends AppCompatActivity {
         User.getInstance().setDomain_service(sharedPreference.getValue(sharedPreference.domain6,0));
         User.getInstance().setDomain_translate(sharedPreference.getValue(sharedPreference.domain1,0));
     }
-
+    public void onclick_ok(){
+    final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+    final RatingBar rating = new RatingBar(this);
+            rating.setMax(5);
 // Button OK
         popDialog.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
@@ -231,15 +246,14 @@ public class ShowBoardList_Main extends AppCompatActivity {
                         textview9.setText(String.valueOf(rating.getProgress()));
                         dialog.dismiss();
                     }
-                })
+                });
 // Button Cancel
-                .setNegativeButton("Cancel",
+                popDialog.setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });
-
         popDialog.create();
         popDialog.show();
 

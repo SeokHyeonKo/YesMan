@@ -45,7 +45,7 @@ public class RegisterBoardActivity extends Activity
                     setContentView(R.layout.test);
                     context = getApplicationContext();
 
-
+                    /*
                     user = User.getInstance();
 
                     user.setUserID("111111111" +
@@ -55,7 +55,7 @@ public class RegisterBoardActivity extends Activity
                     Board board = new Board("두번째","사람입니다",new Date(),123.124,231.23);
                     user.setCurrentDashBoard(board);
                     user.getCurrentBoard().setBoardserialnumber(81);
-
+                    */
 
 
 
