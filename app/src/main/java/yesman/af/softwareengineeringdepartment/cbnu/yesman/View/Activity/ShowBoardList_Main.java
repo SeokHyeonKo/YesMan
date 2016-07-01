@@ -21,6 +21,8 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragme
 
 public class ShowBoardList_Main extends AppCompatActivity {
 
+    public static int matchingcount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

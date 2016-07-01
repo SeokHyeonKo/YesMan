@@ -45,11 +45,12 @@ public class DataMakerbyJson {
                 int ischeckrequest = tempobj.getInt("ischeckrequest");
                 int ischeckaccept = tempobj.getInt("ischeckaccept");
                 int ismatching = tempobj.getInt("ismatching");
+                String userID = tempobj.getString("UserId");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date date  = simpleDateFormat.parse(tempobj.getString("date"));
 
-                Board board = new Board(boardserial,x,y,title,content,domain,requestID,acceptID,category,ischeckrequest,ischeckaccept,ismatching,date);
+                Board board = new Board(boardserial,x,y,title,content,domain,requestID,acceptID,category,ischeckrequest,ischeckaccept,ismatching,date,userID);
                 boardlist.add(board);
             }
 
@@ -80,6 +81,46 @@ public class DataMakerbyJson {
 
 
         return isExist;
+    }
+
+    public int getPoint(String response){
+        JSONObject json = null;
+        int point = -10;
+        try{
+            json = new JSONObject(response);
+            Log.w("포인트  -10일 경우 오류: ",String.valueOf(json.getInt("point")));
+            point = json.getInt("point");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return point;
+
+    }
+
+    public int getReliability(String response){
+        JSONObject json = null;
+        int reliablity = -10;
+        try{
+            json = new JSONObject(response);
+            Log.w("신뢰도 -10일 경우 오류 : ",String.valueOf(json.getInt("reliability")));
+            reliablity = json.getInt("reliability");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reliablity;
+    }
+
+    public int chekMatchingCount(String response){
+        JSONObject json = null;
+        int count = -10;
+        try{
+            json = new JSONObject(response);
+            Log.w("카운트 -10일 경우 오류 : ",String.valueOf(json.getInt("count")));
+            count = json.getInt("count");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
 

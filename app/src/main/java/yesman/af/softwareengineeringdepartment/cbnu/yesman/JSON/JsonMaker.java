@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.MyBoardList;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
@@ -15,7 +16,8 @@ public class JsonMaker {
 
     private static JsonMaker jsonmaker = null;
     public static int TEST = -1,JOIN = 0,GET_REQUSET_LIST = 1,GET_DONATION_LIST = 2, REGISTER_BOARD = 3,
-                     CHANGE_LOCATION = 4,CHECK_MYBOARDLIST = 5,CHECK_USER = 6;
+                     CHANGE_LOCATION = 4,CHECK_MYBOARDLIST = 5,CHECK_USER = 6,GET_MY_INFORMATION = 7,
+                      REGISTER_RELIABILITY = 8,ACCEPT_BOARD = 9,CANCEL_BOARD = 10,CHECK_MATCHING = 11;
     private JSONObject jsonobj;
     private JSONArray jsonarr;
     private int selected;
@@ -35,6 +37,16 @@ public class JsonMaker {
             tempobj = checkMyBoardListJSON(user);
         }else if(selected==CHECK_USER){
             tempobj = check_User(user);
+        }else if(selected==GET_MY_INFORMATION){
+            tempobj = getMyInformation(user);
+        }else if(selected==REGISTER_RELIABILITY){
+            tempobj = registerReliability(user);
+        }else if(selected==ACCEPT_BOARD){
+            tempobj =acceptBoard(user);
+        }else if(selected==CANCEL_BOARD){
+            tempobj =cancelBoard(user);
+        }else if(selected==CHECK_MATCHING){
+            tempobj =checkMatching(user);
         }
         else{
             return null;
@@ -42,6 +54,74 @@ public class JsonMaker {
 
 
         return  tempobj;
+    }
+
+    public JSONObject checkMatching(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("UserId", user.getUserID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+    public JSONObject cancelBoard(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("UserId", user.getUserID());
+            jsonobj.put("boardserialnumber",user.getCurrentBoard().getBoardserialnumber());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+
+    public JSONObject acceptBoard(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("UserId", user.getUserID());
+            jsonobj.put("boardserialnumber",user.getCurrentBoard().getBoardserialnumber());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+
+
+    //수락할때 currentBoard받아놔야 함
+    public JSONObject registerReliability(User user){
+        jsonobj = new JSONObject();
+        try {
+            Board userboard = user.getCurrentBoard();
+            int who = whichiperson(userboard.getUserId(),userboard.getRequestID());
+            jsonobj.put("UserId", user.getUserID());
+            jsonobj.put("boardserialnumber",userboard.getBoardserialnumber());
+            jsonobj.put("whichperson",who);
+            jsonobj.put("acceptID",userboard.getAcceptID());
+            jsonobj.put("requestID",userboard.getRequestID());
+            jsonobj.put("score", MyBoardList.opponetReliability);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+    public JSONObject getMyInformation(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("UserId", user.getUserID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
     }
 
     public JSONObject check_User(User user){
@@ -137,6 +217,17 @@ public class JsonMaker {
         }
         return jsonobj;
     }
+
+    public int whichiperson(String userid,String requsetid){
+        int who = -1;
+        if(userid.equals(requsetid)) who = 0;
+        else who = 1;
+
+        return who;
+
+    }
+
+
 
 
 
