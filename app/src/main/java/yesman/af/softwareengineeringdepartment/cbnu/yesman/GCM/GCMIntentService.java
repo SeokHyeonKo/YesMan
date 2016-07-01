@@ -17,7 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.RegisterBoardActivity;
 //으범수정
 /**
  * Created by seokhyeon on 2016-06-26.
@@ -92,11 +91,11 @@ public class GCMIntentService extends IntentService {
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         GCMValue.IS_NOTIFICATION = "TRUE";
-        Intent intent = new Intent(this,RegisterBoardActivity.class);
-        intent.putExtra(GCMValue.NOTIFICATION,GCMValue.IS_NOTIFICATION);
+        //Intent intent = new Intent(this,RegisterBoardActivity.class);
+        //intent.putExtra(GCMValue.NOTIFICATION,GCMValue.IS_NOTIFICATION);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                intent, 0);
+        //PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                //intent, 0);
 
         NotificationCompat.Builder mBuilder =
                 null;
@@ -117,7 +116,7 @@ public class GCMIntentService extends IntentService {
         mBuilder.setVibrate(new long[]{0,1500}); // 진동 효과 (퍼미션 필요)
         mBuilder.setAutoCancel(true); // 클릭하면 삭제
 
-        mBuilder.setContentIntent(contentIntent);
+       // mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 

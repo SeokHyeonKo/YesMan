@@ -61,8 +61,8 @@ public class interest extends AppCompatActivity {
 
     public void Onclick_next(View v) {
 
-        sharedPreference.put("domain0", 0);
-        sharedPreference.put("domain1", 0);
+        sharedPreference.put(sharedPreference.domain0, 0);
+        sharedPreference.put(sharedPreference.domain1, 0);
         sharedPreference.put("domain2", 0);
         sharedPreference.put("domain3", 0);
         sharedPreference.put("domain4", 0);
@@ -97,6 +97,7 @@ public class interest extends AppCompatActivity {
         }
         if (domain7.isChecked() == true) {
             sharedPreference.put(sharedPreference.domain7, 1);
+
         }
 
 
@@ -106,6 +107,8 @@ public class interest extends AppCompatActivity {
         System.out.println("-------유저확인--------");
         System.out.println(user.getUserID()+","+user.getUserName());
 
+        //ServerManager severmanager = ServerManager.getInstance();
+        //severmanager.joinUser();
 
 
         gcm = GoogleCloudMessaging.getInstance(context);

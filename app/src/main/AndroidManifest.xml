@@ -51,9 +51,6 @@
         <!-- GCM 서비스 -->
         <service android:name=".GCM.GCMIntentService" />
 
-        <activity android:name=".View.RegisterBoardActivity">
-        </activity>
-
 
         <!-- 페이스북 메타 데이터들-->
         <meta-data
@@ -86,7 +83,7 @@
         </activity>
 
 
-        <activity android:name=".View.Activity.Write">
+    <activity android:name=".View.Activity.Write">
         </activity>
 
         <!-- 관심분야 설정 -->

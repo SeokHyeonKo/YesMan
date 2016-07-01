@@ -12,7 +12,7 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.Shar
 
 public class SplashActivity extends Activity {
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private final int SPLASH_DISPLAY_LENGTH = 3000;
     private SharedPreference sharedPreference;
     /** Called when the activity is first created. */
     @Override
