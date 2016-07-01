@@ -23,36 +23,31 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="android.support.multidex.MultiDexApplication">
-
-        <activity android:name=".View.Activity.SplashActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".View.Activity.SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <action android:name="android.intent.action.MAIN" />
 
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
         <!-- GCM 리시버 -->
         <receiver
             android:name=".GCM.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="yesman.af.softwareengineeringdepartment.cbnu.yesman" />
-            </intent-filter>
         </receiver>
         <!-- GCM 서비스 -->
         <service android:name=".GCM.GCMIntentService" />
 
-
-        <!-- 페이스북 메타 데이터들-->
+        <!-- 페이스북 메타 데이터들 -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_add_id" />
@@ -63,7 +58,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <!-- 구글 메타데이터-->
+        <!-- 구글 메타데이터 -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDGbzYI4Rcs3YnqB0-wUH4QgD4Fpl5Tf1g" />
@@ -71,20 +66,14 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
         <!-- 메인 -->
-        <activity android:name=".View.Activity.ShowBoardList_Main">
-
-        </activity>
+        <activity android:name=".View.Activity.ShowBoardList_Main" />
 
         <!-- 글확인 -->
-        <activity android:name=".View.Activity.ContentBoard"
-            android:parentActivityName=".View.Activity.ShowBoardList_Main" >
-        </activity>
-
-
-    <activity android:name=".View.Activity.Write">
-        </activity>
+        <activity
+            android:name=".View.Activity.ContentBoard"
+            android:parentActivityName=".View.Activity.ShowBoardList_Main" />
+        <activity android:name=".View.Activity.Write" />
 
         <!-- 관심분야 설정 -->
         <activity
@@ -92,34 +81,28 @@
             android:label="관심분야 설정" />
 
         <!-- 마이페이지 -->
-        <activity android:name=".View.Activity.MyPage"
+        <activity
+            android:name=".View.Activity.MyPage"
             android:theme="@style/AppTheme.TranslucentActionBar" />
 
-
         <!-- 위치설정 -->
-        <activity android:name=".View.Activity.GoogleMap"
-            android:label="사용자 위치 설정"/>
+        <activity
+            android:name=".View.Activity.GoogleMap"
+            android:label="사용자 위치 설정" />
 
         <!-- 로그인 -->
-        <activity android:name=".View.Activity.Login"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".View.Activity.Login"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 테스트용 -->
         <activity
             android:name=".View.GCMtestActivity"
             android:label="@string/title_activity_gcmtest"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-
-
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 자기 보드 확인 -->
-        <activity
-            android:name=".View.Activity.MyBoardList"
-            ></activity>
+        <activity android:name=".View.Activity.MyBoardList" />
     </application>
 
 </manifest>

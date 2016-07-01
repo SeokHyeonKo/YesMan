@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,26 +28,65 @@
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_toRightOf="@+id/board_image">
+                android:id="@+id/relativeLayout"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="275dp"
+                    android:layout_width="242dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="ddd"/>
+                    android:text="ddd"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignEnd="@+id/primary_button"
+                    android:layout_marginEnd="33dp" />
 
-                <TextView
-                    android:id="@+id/content"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ddd"/>
-            </LinearLayout>
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/primary_button"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right|top"
+                    android:text="OK"
+                    fbutton:buttonColor="@color/fbutton_color_turquoise"
+                    fbutton:shadowEnabled="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="onclick_ok" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="242dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="ddd"
+                android:layout_below="@+id/relativeLayout"
+                android:layout_toEndOf="@+id/board_image" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/danger_button"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:text="cancle"
+                fbutton:buttonColor="@color/fbutton_color_alizarin"
+                fbutton:shadowEnabled="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/relativeLayout"
+                android:layout_alignParentEnd="true"
+                android:onClick="onclick_cancle" />
+
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

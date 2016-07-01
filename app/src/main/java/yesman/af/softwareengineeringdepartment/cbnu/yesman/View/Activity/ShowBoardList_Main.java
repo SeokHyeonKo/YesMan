@@ -1,19 +1,26 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -39,7 +46,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
         initUser();
 
 
-
+         RatingBar rb = (RatingBar)findViewById(R.id.ratingbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,5 +159,40 @@ public class ShowBoardList_Main extends AppCompatActivity {
         User.getInstance().setDomain_service(sharedPreference.getValue(sharedPreference.domain6,0));
         User.getInstance().setDomain_translate(sharedPreference.getValue(sharedPreference.domain1,0));
     }
+    public void onclick_ok(){
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        final RatingBar rating = new RatingBar(this);
+        rating.setMax(6);
+        popDialog.setIcon(android.R.drawable.btn_star_big_on);
+        popDialog.setTitle("Vote!! ");
+        popDialog.setView(rating);
 
+// Button OK
+        popDialog.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //txtView.setText(String.valueOf(rating.getProgress()));
+                        dialog.dismiss();
+                    }
+                })
+// Button Cancel
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        popDialog.create();
+        popDialog.show();
+
+    }
+    public void onclick_cancle(){
+        new MaterialDialog.Builder(this)
+                .title("xx")
+                .content("xx")
+                .positiveText("xx")
+                .negativeText("xx")
+                .show();
+    }
 }
