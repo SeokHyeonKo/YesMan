@@ -13,7 +13,7 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
  * Created by User on 2016-07-01.
  */
 public class Write extends AppCompatActivity {
-
+//ㅇㅇ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_layout);
