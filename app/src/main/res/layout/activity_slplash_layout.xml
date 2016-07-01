@@ -8,6 +8,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/imageView2"
-        android:src="@drawable/main"
+        android:src="@drawable/splash"
         android:scaleType="fitXY"/>
 </LinearLayout>

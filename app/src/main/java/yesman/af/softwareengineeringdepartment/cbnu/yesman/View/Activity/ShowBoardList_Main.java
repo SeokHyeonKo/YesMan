@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -137,7 +137,44 @@ public class ShowBoardList_Main extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_actiontab, menu);
+
+        MenuItem item = menu.findItem(R.id.myBoardList_btn);
+        item.setIcon(buildCounterDrawable(matchingcount, R.drawable.file));
+
         return true;
+    }
+
+    // matchingcount값에 따라 알림표시 그려주는 함수
+    private Drawable buildCounterDrawable(int count, int backgroundImageId) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.custom_badge, null);
+        view.setBackgroundResource(backgroundImageId);
+
+        if (count == 0) {
+            View counterTextPanel = view.findViewById(R.id.counterValuePanel);
+            counterTextPanel.setVisibility(View.GONE);
+        } else {
+            TextView textView = (TextView) view.findViewById(R.id.count);
+            textView.setText("" + count);
+        }
+
+        view.measure(
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+
+        view.setDrawingCacheEnabled(true);
+        view.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+        view.setDrawingCacheEnabled(false);
+
+        return new BitmapDrawable(getResources(), bitmap);
+    }
+
+    // 알림 숫자 증가 함수
+    private void doIncrease() {
+        matchingcount++;
+        invalidateOptionsMenu();
     }
 
 
@@ -154,6 +191,10 @@ public class ShowBoardList_Main extends AppCompatActivity {
         if (id == R.id.myBoardList_btn) {
             Intent intent = new Intent(this,MyBoardList.class);
             startActivity(intent);
+
+            //알림 숫자증가 테스트
+            doIncrease();
+
             return true;
         }
 
@@ -183,5 +224,32 @@ public class ShowBoardList_Main extends AppCompatActivity {
         User.getInstance().setDomain_translate(sharedPreference.getValue(sharedPreference.domain1,0));
     }
 
+// Button OK
+        popDialog.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        textview9.setText(String.valueOf(rating.getProgress()));
+                        dialog.dismiss();
+                    }
+                })
+// Button Cancel
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
+        popDialog.create();
+        popDialog.show();
+
+    }
+    public void onclick_cancle(){
+        new MaterialDialog.Builder(this)
+                .title("xx")
+                .content("xx")
+                .positiveText("xx")
+                .negativeText("xx")
+                .show();
+    }
 }

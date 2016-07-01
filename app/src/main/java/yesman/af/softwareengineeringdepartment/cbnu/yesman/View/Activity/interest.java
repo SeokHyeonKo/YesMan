@@ -10,7 +10,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
@@ -57,18 +59,20 @@ public class interest extends AppCompatActivity {
 
         sharedPreference = new SharedPreference(this);
 
+
+
     }
 
     public void Onclick_next(View v) {
 
-        sharedPreference.put("domain0", 0);
-        sharedPreference.put("domain1", 0);
-        sharedPreference.put("domain2", 0);
-        sharedPreference.put("domain3", 0);
-        sharedPreference.put("domain4", 0);
-        sharedPreference.put("domain5", 0);
-        sharedPreference.put("domain6", 0);
-        sharedPreference.put("domain7", 0);
+        sharedPreference.put(sharedPreference.domain0, 0);
+        sharedPreference.put(sharedPreference.domain1, 0);
+        sharedPreference.put(sharedPreference.domain2, 0);
+        sharedPreference.put(sharedPreference.domain3, 0);
+        sharedPreference.put(sharedPreference.domain4, 0);
+        sharedPreference.put(sharedPreference.domain5, 0);
+        sharedPreference.put(sharedPreference.domain6, 0);
+        sharedPreference.put(sharedPreference.domain7, 0);
 
 
         if (domain0.isChecked() == true) {
@@ -97,12 +101,15 @@ public class interest extends AppCompatActivity {
         }
         if (domain7.isChecked() == true) {
             sharedPreference.put(sharedPreference.domain7, 1);
+
         }
 
 
         if(getIntent().hasExtra("set")){
             ServerManager serverManager = ServerManager.getInstance();
 
+        //ServerManager severmanager = ServerManager.getInstance();
+        //severmanager.joinUser();
 
 
         }else{
@@ -246,6 +253,30 @@ public class interest extends AppCompatActivity {
        // SharedPreferences.Editor editor = prefs.edit();
         sharedPreference.put(GCMValue.PROPERTY_REG_ID, regid);
         sharedPreference.put(GCMValue.PROPERTY_APP_VERSION, appVersion);
+    }
+    public void onclick_domain0(View v){
+        domain0.setChecked(true);
+    }
+    public void onclick_domain1(View v){
+        domain1.setChecked(true);
+    }
+    public void onclick_domain2(View v){
+        domain2.setChecked(true);
+    }
+    public void onclick_domain3(View v){
+        domain3.setChecked(true);
+    }
+    public void onclick_domain4(View v){
+        domain4.setChecked(true);
+    }
+    public void onclick_domain5(View v){
+        domain5.setChecked(true);
+    }
+    public void onclick_domain6(View v){
+        domain6.setChecked(true);
+    }
+    public void onclick_domain7(View v){
+        domain7.setChecked(true);
     }
 
 

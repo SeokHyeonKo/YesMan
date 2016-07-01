@@ -16,28 +16,36 @@
         android:id="@+id/domain0"
         android:src="@drawable/design"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="onclick_domain0" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/domain1"
         android:src="@drawable/translate"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="onclick_domain1" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/domain2"
         android:src="@drawable/document"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:onClick="onclick_domain2" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/domain3"
         android:src="@drawable/marketing"
         android:layout_alignTop="@+id/domain4"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="onclick_domain3" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -45,21 +53,29 @@
         android:src="@drawable/computer"
         android:layout_below="@+id/domain1"
         android:layout_alignStart="@+id/domain1"
-        android:layout_marginTop="39dp" />
+        android:layout_marginTop="39dp"
+        android:clickable="true"
+        android:onClick="onclick_domain4" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/domain5"
         android:src="@drawable/musicvideo"
         android:layout_alignTop="@+id/domain4"
-        android:layout_alignStart="@+id/domain2" />
+        android:layout_alignStart="@+id/domain2"
+        android:clickable="true"
+        android:onClick="onclick_domain5" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/domain6"
         android:src="@drawable/lifestyle"
         android:layout_alignTop="@+id/domain7"
-        android:layout_alignEnd="@+id/textView7" />
+        android:layout_alignEnd="@+id/textView7"
+        android:clickable="true"
+        android:focusable="true"
+        android:nestedScrollingEnabled="false"
+        android:onClick="onclick_domain6" />
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -67,7 +83,9 @@
         android:src="@drawable/entertainment"
         android:layout_marginTop="33dp"
         android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/domain4" />
+        android:layout_alignStart="@+id/domain4"
+        android:clickable="true"
+        android:onClick="onclick_domain7" />
 
     <CheckBox
         android:layout_width="wrap_content"
