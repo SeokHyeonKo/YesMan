@@ -28,15 +28,18 @@
                 android:layout_gravity="center"
                 android:orientation="horizontal">
                 <RadioButton
+                    android:id="@+id/donation_rbtn_write"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="재능 기부"/>
 
                 <RadioButton
+                    android:id="@+id/request_rbtn_write"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="재능 기부"/>
+                    android:text="재능 요청"/>
             </RadioGroup>
 
         <LinearLayout
@@ -118,12 +121,14 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/cancel_btn_write"
                 android:background="@drawable/xml_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="취소"/>
 
             <Button
+                android:id="@+id/registerbtn_write"
                 android:background="@drawable/xml_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

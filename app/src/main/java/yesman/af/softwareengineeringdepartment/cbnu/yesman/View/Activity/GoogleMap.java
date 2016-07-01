@@ -50,8 +50,10 @@ public class GoogleMap extends AppCompatActivity {
                 Log.d("GPS수신......X : ", String.valueOf(arg0.latitude));
                 Log.d("GPS수신......Y : ", String.valueOf(arg0.longitude));
                 map.addMarker(markerOptions).showInfoWindow();
-                sharedPreference.put(sharedPreference.user_x, String.valueOf(arg0.latitude)); //서버에 넘겨줄 좌표값
-                sharedPreference.put(sharedPreference.user_y, String.valueOf(arg0.longitude));
+                x = arg0.latitude;
+                y = arg0.longitude;
+               // sharedPreference.put(sharedPreference.user_x, String.valueOf(arg0.latitude)); //서버에 넘겨줄 좌표값
+                //sharedPreference.put(sharedPreference.user_y, String.valueOf(arg0.longitude));
             }
         });
 
@@ -92,14 +94,12 @@ public class GoogleMap extends AppCompatActivity {
     }
 
     private void init() {
-
-
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
             x = gps.getLatitude();
             y = gps.getLongitude();
-            sharedPreference.put(sharedPreference.user_x, String.valueOf(x)); //서버에 넘겨줄 좌표값
-            sharedPreference.put(sharedPreference.user_y, String.valueOf(y));
+            //sharedPreference.put(sharedPreference.user_x, String.valueOf(x)); //서버에 넘겨줄 좌표값
+            //sharedPreference.put(sharedPreference.user_y, String.valueOf(y));
             // Creating a LatLng object for the current location
             LatLng latLng = new LatLng(x, y);
             Log.d("GPS수신......X : ", String.valueOf(x));
@@ -124,17 +124,18 @@ public class GoogleMap extends AppCompatActivity {
     public void Onclick_next(View v) {
         Intent intent = getIntent();
         int set = intent.getIntExtra("set", 0);
-        if (set == 1) {
+        if(set == 1) {
             finish();
         } else {
+            sharedPreference = new SharedPreference(this);
+            sharedPreference.put(sharedPreference.user_x,String.valueOf(x));
+            sharedPreference.put(sharedPreference.user_y,String.valueOf(y));
+            System.out.println("user x값 : "+x);
+            System.out.println("user y값 : "+y);
             startActivity(new Intent(this, interest.class));
         }
 
-        sharedPreference = new SharedPreference(this);
-        sharedPreference.put(sharedPreference.user_x,String.valueOf(x));
-        sharedPreference.put(sharedPreference.user_y,String.valueOf(y));
-        System.out.println("user x값 : "+x);
-        System.out.println("user y값 : "+y);
+
     }
 
 }

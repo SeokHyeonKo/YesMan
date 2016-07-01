@@ -24,12 +24,11 @@ public class Board implements Serializable{
 
 
     //등록용 생성자
-    public Board(String title, String content, Date date, double x, double y){
+    public Board(String title, String content, double x, double y){
         this.x = x;
         this.y = y;
         this.title = title;
         this.content = content;
-        this.date = date;
     }
 
     //보드 리스트를 가져오기 위한 생성자

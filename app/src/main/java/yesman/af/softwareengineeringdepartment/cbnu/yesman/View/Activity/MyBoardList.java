@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.ListViewAdapter;
@@ -39,21 +38,7 @@ public class MyBoardList extends ActionBarActivity {
         ArrayList<Board> data = new ArrayList<>();
         ListView listView=(ListView)findViewById(R.id.my_boardlist_ListView);
 
-        Board item1=new Board("#1","리스트뷰로 바꿔줘", new Date(2016,02,03),3,3);
-        Board item2=new Board("#2","배고파", new Date(2016,02,03),3,3);
-        Board item3=new Board("#3","i'm hungry", new Date(2016,02,03),3,3);
-        Board item4=new Board("#4","우옹~~", new Date(2016,02,03),3,3);
-        Board item5=new Board("#5","스크롤 된당", new Date(2016,02,03),3,3);
-        Board item6=new Board("#6","얍삐", new Date(2016,02,03),3,3);
-        Board item7=new Board("#7","호호호호홍", new Date(2016,02,03),3,3);
 
-        data.add(item1);
-        data.add(item2);
-        data.add(item3);
-        data.add(item4);
-        data.add(item5);
-        data.add(item6);
-        data.add(item7);
         System.out.println("들어옴?");
         ListViewAdapter adapter = new ListViewAdapter(this, R.layout.content_listview_showboarlist_main, data);
         listView.setAdapter(adapter);
