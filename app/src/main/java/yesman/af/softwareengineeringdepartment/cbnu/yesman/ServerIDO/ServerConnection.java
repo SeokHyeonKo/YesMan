@@ -95,7 +95,7 @@ public class ServerConnection extends AsyncTask<String, String, String> {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            //ㅇ
             if(isbe){
                 User.getInstance().setBoardList(DataMakerbyJson.getDataMaker().getBoardList(result));
 
