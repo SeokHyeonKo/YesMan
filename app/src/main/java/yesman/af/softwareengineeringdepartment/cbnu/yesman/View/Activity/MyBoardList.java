@@ -58,10 +58,8 @@ public class MyBoardList extends ActionBarActivity {
         ListViewAdapter adapter = new ListViewAdapter(this, R.layout.content_listview_showboarlist_main, data);
         listView.setAdapter(adapter);
 
-
         // ActionBar의 배경색 변경
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
-
     }
 
 

@@ -44,8 +44,8 @@ public class ShowBoardList_Main extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), Write.class);
+                startActivity(intent);
             }
         });
         fab.setBackgroundResource(R.drawable.messenger_button_white_bg_round);

@@ -8,4 +8,16 @@
     <string name="titleC">글쓰기</string>
     <string name="titleD">마이페이지</string>
     <string name="title_activity_gcmtest">GCMtestActivity</string>
+    <string name="spinner_prompt">범주를 선택하세요</string>
+
+    <string-array name="category">
+        <item>컴퓨터</item>
+        <item>디자인</item>
+        <item>문서</item>
+        <item>예체능</item>
+        <item>동영상</item>
+        <item>마케팅</item>
+        <item>라이프스타일</item>
+        <item>번역</item>
+    </string-array>
 </resources>
