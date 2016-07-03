@@ -102,7 +102,7 @@ public class ServerConnection extends AsyncTask<String, String, String> {
 
                 if(JsonMaker.getInstance().getSeleted()==JsonMaker.GET_REQUSET_LIST
                         || JsonMaker.getInstance().getSeleted()==JsonMaker.GET_DONATION_LIST){
-                   if(ShowBoardList_Main.frmainfragmentcontrol!=null) ShowBoardList_Main.frmainfragmentcontrol.setListViewAdapter();
+                   if(ShowBoardList_Main.frmainfragmentcontrol!=null && User.getInstance().getBoardList()!=null) ShowBoardList_Main.frmainfragmentcontrol.setListViewAdapter();
                 }
 
                 if(JsonMaker.getInstance().getSeleted()==JsonMaker.CHECK_MYBOARDLIST){

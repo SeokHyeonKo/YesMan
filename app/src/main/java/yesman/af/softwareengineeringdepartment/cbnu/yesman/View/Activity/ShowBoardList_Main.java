@@ -23,10 +23,13 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import java.util.ArrayList;
+
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.Fragment_BoardList_inMain;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.CategoryDomainManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
@@ -316,6 +319,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
 
     public void onResume(){
         super.onResume();
+        User.getInstance().setBoardList(new ArrayList<Board>());
         ServerManager serverManager = ServerManager.getInstance();
         if(seletedtab==0) serverManager.getDonation_BoardList();
         else serverManager.getRequest_BoardList();
