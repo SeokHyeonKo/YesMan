@@ -31,11 +31,12 @@ public class Fragment_BoardList_inMain extends Fragment {
         View view = inflater.inflate(R.layout.listview_fragment, container, false);
         listView=(ListView)view.findViewById(R.id.board_list);
 
-        data = User.getInstance().getBoardList();
+        if(User.getInstance().getBoardList()!=null) data = User.getInstance().getBoardList();
+
         for(int i=0;i<data.size();i++){
             System.out.println(data.get(i).getUserId());
         }
-        System.out.println("들어옴?");
+        System.out.println("최초 실행 구간임 왜 데이터가 넘오오지 않을까");
         adapter = new ListViewAdapter(getActivity(), R.layout.content_listview_showboarlist_main, data);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
@@ -62,7 +63,7 @@ public class Fragment_BoardList_inMain extends Fragment {
             // TODO Auto-generated method stub
 
             Intent detailBoard = new Intent(getActivity(), ContentBoard.class);
-            detailBoard.putExtra("selected", data.get(position));
+            User.getInstance().setCurrentBoard(data.get(position));
             getContext().startActivity(detailBoard);
         }
     };

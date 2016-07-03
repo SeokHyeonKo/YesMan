@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="9dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/board_image"
+                android:layout_width="0dp"
+                android:layout_height="96dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                android:src="@drawable/computer"
+                android:layout_weight="3"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_weight="1"
+                            android:text="제 목 : "
+                            />
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="제목"
+                            android:layout_marginLeft="10dp" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_weight="2"
+                            android:text="내 용 : "
+                             />
+
+                        <TextView
+                            android:id="@+id/content"
+                            android:layout_width="0dp"
+                            android:layout_weight="5"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="내용입니다"
+                            android:layout_below="@+id/relativeLayout"
+                            android:layout_toEndOf="@+id/board_image" />
+
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/my_boardlist_ListView_datetxt"
+                        android:layout_width="242dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="날짜입니다"
+                        android:layout_below="@+id/relativeLayout"
+                        android:layout_toEndOf="@+id/board_image" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    >
+                    <info.hoang8f.widget.FButton
+                        android:id="@+id/okbtn_myboardlist"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:text="OK"
+                        fbutton:buttonColor="@color/fbutton_color_turquoise"
+                        fbutton:shadowEnabled="true"
+                         />
+
+
+                    <info.hoang8f.widget.FButton
+                        android:id="@+id/cancel_btn_myboardlist"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:text="cancle"
+                        fbutton:buttonColor="@color/fbutton_color_alizarin"
+                        fbutton:shadowEnabled="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10dp"/>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text=""
+            android:id="@+id/textView9"
+            android:layout_gravity="center_horizontal" />
+
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

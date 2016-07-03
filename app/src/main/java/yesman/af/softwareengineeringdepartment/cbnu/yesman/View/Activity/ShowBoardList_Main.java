@@ -1,6 +1,5 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -10,29 +9,25 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.FacebookSdk;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
-
-import org.w3c.dom.Text;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.ServerIDO.ServerManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.SharedPreference.SharedPreference;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment.Fragment_BoardList_inMain;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.CategoryDomainManager;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 
 
@@ -42,18 +37,53 @@ public class ShowBoardList_Main extends AppCompatActivity {
         public static int seletedtab = 0;  // 0은 재능기부 1은 재능받기
         private SharedPreference sharedPreference;
     FragmentPagerItemAdapter adapter;
-        private TextView textview9;
+    MenuItem item;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            FacebookSdk.sdkInitialize(getApplicationContext());
             setContentView(R.layout.activity_showboardlist_main_biglayout);
+            sharedPreference = new SharedPreference(this);
 
-        sharedPreference = new SharedPreference(this);
-        initUser();
+
+
+
+            if(getIntent().hasExtra("exist")==false){ // 유저가 존재하지 않고 가입한 경우
+                initUser();
+                sharedPreference = new SharedPreference(this);
+                sharedPreference.put(sharedPreference.PUSH_OPTION,"ON");
+            }else { // 기존에 존재 하였으나 로그아웃한후 다시 들어온경우
+                sharedPreference = new SharedPreference(this);
+                sharedPreference.put(sharedPreference.PUSH_OPTION,"ON");
+                ServerManager serverManager = ServerManager.getInstance();
+                serverManager.getAllUserInfo();
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        setPreferenceWithUser();
+                        CategoryDomainManager.x = User.getInstance().getX();
+                        CategoryDomainManager.y = User.getInstance().getY();
+                    }
+                }, 300);
+            }
+
+            if(getIntent().hasExtra("put")==true){ //기존 유저 접속
+                sharedPreference = new SharedPreference(this);
+
+            }
+
             ServerManager serverManager = ServerManager.getInstance();
             serverManager.getDonation_BoardList();
 
-            textview9 = (TextView) findViewById(R.id.textView9);
+
+
+
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +96,8 @@ public class ShowBoardList_Main extends AppCompatActivity {
         fab.setBackgroundResource(R.drawable.messenger_button_white_bg_round);
 
 
+
+
         adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.titleA, Fragment_BoardList_inMain.class)
@@ -73,18 +105,25 @@ public class ShowBoardList_Main extends AppCompatActivity {
                 .create());
 
 
-
-
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
-
-
 
         SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
 
-        getSupportActionBar().setTitle("TEST");
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(0);
+                    fr.setListViewAdapter();
+
+                }
+            }, 600);
+
+
+        getSupportActionBar().setTitle("YesMan");
         // ActionBar의 배경색 변경
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
 
@@ -122,7 +161,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
                             fr.setListViewAdapter();
                         }
                     }
-                }, 500);
+                }, 600);
 
 
                 //adapter.notifyDataSetChanged()
@@ -133,7 +172,21 @@ public class ShowBoardList_Main extends AppCompatActivity {
             }
         });
 
-            Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(0);
+
+
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                { // 매칭이 되었다면 알려줌
+                    ServerManager.getInstance().checkMatching();
+                    item.setIcon(buildCounterDrawable(matchingcount, R.drawable.file));
+                }
+            }, 1300);
+
+
+
+        
 
     }
 
@@ -150,8 +203,8 @@ public class ShowBoardList_Main extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_actiontab, menu);
 
-        MenuItem item = menu.findItem(R.id.myBoardList_btn);
-        item.setIcon(buildCounterDrawable(matchingcount, R.drawable.file));
+        item = menu.findItem(R.id.myBoardList_btn);
+
 
         return true;
     }
@@ -196,6 +249,7 @@ public class ShowBoardList_Main extends AppCompatActivity {
 
         if (id == R.id.mypage_btn) {
             Intent intent = new Intent(this,MyPage.class);
+            buildCounterDrawable(0,R.drawable.file);
             startActivity(intent);
             return true;
         }
@@ -205,13 +259,32 @@ public class ShowBoardList_Main extends AppCompatActivity {
             startActivity(intent);
 
             //알림 숫자증가 테스트
-            doIncrease();
+            //doIncrease();
 
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void setPreferenceWithUser(){
+        User user = User.getInstance();
+        sharedPreference.put(sharedPreference.user_id,user.getUserID());
+        sharedPreference.put(sharedPreference.user_name,user.getUserName());
+        sharedPreference.put(sharedPreference.user_x,String.valueOf(user.getX()));
+        sharedPreference.put(sharedPreference.user_y,String.valueOf(user.getY()));
+        sharedPreference.put(sharedPreference.domain0,String.valueOf(user.getDomain_dsign()));
+        sharedPreference.put(sharedPreference.domain1,String.valueOf(user.getDomain_translate()));
+        sharedPreference.put(sharedPreference.domain2,String.valueOf(user.getDomain_document()));
+        sharedPreference.put(sharedPreference.domain3,String.valueOf(user.getDomain_marketing()));
+        sharedPreference.put(sharedPreference.domain4,String.valueOf(user.getDomain_computer()));
+        sharedPreference.put(sharedPreference.domain5,String.valueOf(user.getDomain_music()));
+        sharedPreference.put(sharedPreference.domain6,String.valueOf(user.getDomain_service()));
+        sharedPreference.put(sharedPreference.domain7,String.valueOf(user.getDomain_play()));
+        sharedPreference.put(sharedPreference.reg_id,user.getRegID());
+    }
+
+
 
     private void initUser(){
 
@@ -235,35 +308,31 @@ public class ShowBoardList_Main extends AppCompatActivity {
         User.getInstance().setDomain_service(sharedPreference.getValue(sharedPreference.domain6,0));
         User.getInstance().setDomain_translate(sharedPreference.getValue(sharedPreference.domain1,0));
     }
-    public void onclick_ok(){
-    final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
-    final RatingBar rating = new RatingBar(this);
-            rating.setMax(5);
-// Button OK
-        popDialog.setPositiveButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        textview9.setText(String.valueOf(rating.getProgress()));
-                        dialog.dismiss();
-                    }
-                });
-// Button Cancel
-                popDialog.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        popDialog.create();
-        popDialog.show();
 
+    public void onResume(){
+        super.onResume();
+        ServerManager serverManager = ServerManager.getInstance();
+        if(seletedtab==0) serverManager.getDonation_BoardList();
+        else serverManager.getRequest_BoardList();
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if(seletedtab==0){
+                    System.out.println("실행?");
+                    Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(0);
+                    fr.setListViewAdapter();
+
+
+                }else{
+                    System.out.println("실행?");
+                    Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(1);
+                    fr.setListViewAdapter();
+                }
+            }
+        }, 600);
     }
-    public void onclick_cancle(){
-        new MaterialDialog.Builder(this)
-                .title("xx")
-                .content("xx")
-                .positiveText("xx")
-                .negativeText("xx")
-                .show();
-    }
+
 }

@@ -18,7 +18,7 @@ import java.net.URLDecoder;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ContentBoard;
-import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.RegisterBoardActivity;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.CategoryDomainManager;
 //으범수정
 /**
  * Created by seokhyeon on 2016-06-26.
@@ -82,9 +82,11 @@ public class GCMIntentService extends IntentService {
         // 혹시 모를 사용가능한 코드
         String jobjstring = extras.getString(TYPE_EXTRA_CODE);
         System.out.println("넘어온 제이슨 : "+jobjstring);
+        int domain = 3;
         JSONObject jboj = null;
         try {
             jboj = new JSONObject(jobjstring);
+            domain = jboj.getInt("domain");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -103,12 +105,31 @@ public class GCMIntentService extends IntentService {
                 null;
         try {
             mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher) // 도메인에 맡게 코딩하면 될듯
-                    .setContentTitle(URLDecoder.decode(extras.getString(TITLE_EXTRA_KEY), "UTF-8"))
+                    //.setSmallIcon(R.mipmap.ic_launcher) // 도메인에 맡게 코딩하면 될듯
+                    .setContentTitle(URLDecoder.decode("제목 : "+extras.getString(TITLE_EXTRA_KEY), "UTF-8"))
                     .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(URLDecoder.decode(extras.getString(MSG_EXTRA_KEY), "UTF-8")))
-                    .setContentText(URLDecoder.decode(extras.getString(MSG_EXTRA_KEY), "UTF-8"))
+                    .setContentText(URLDecoder.decode("내용 : "+extras.getString(MSG_EXTRA_KEY), "UTF-8"))
                     .setGroup(URLDecoder.decode(jboj.getString("userid"), "UTF-8"));
+
+            if(domain== CategoryDomainManager.COMPUTER){
+                mBuilder.setSmallIcon(R.drawable.computer);
+            }else if(domain== CategoryDomainManager.DESIGN){
+                mBuilder.setSmallIcon(R.drawable.design);
+            }else if(domain== CategoryDomainManager.DOCUMENT){
+                mBuilder.setSmallIcon(R.drawable.document);
+            }else if(domain== CategoryDomainManager.ENTERTAINMENT){
+                mBuilder.setSmallIcon(R.drawable.entertainment);
+            }else if(domain== CategoryDomainManager.LIFE){
+                mBuilder.setSmallIcon(R.drawable.lifestyle);
+            }else if(domain== CategoryDomainManager.MARKETING){
+                mBuilder.setSmallIcon(R.drawable.marketing);
+            }else if(domain== CategoryDomainManager.MOVIE_MUSIC){
+                mBuilder.setSmallIcon(R.drawable.musicvideo);
+            }else if(domain== CategoryDomainManager.TRANSLATE){
+                mBuilder.setSmallIcon(R.drawable.translate);
+            }
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (JSONException e) {

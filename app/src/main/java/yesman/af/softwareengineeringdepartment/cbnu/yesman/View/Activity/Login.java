@@ -84,6 +84,7 @@ public class Login extends Activity {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
                             User user = User.getInstance();
+                            System.out.println("access token : "+loginResult.getAccessToken());
                             AccessToken.setCurrentAccessToken(loginResult.getAccessToken());
                                 /* 페이스북 프로필을 가져온다*/
                             Handler mHandler = new Handler();
@@ -93,11 +94,13 @@ public class Login extends Activity {
                                     profile = Profile.getCurrentProfile();
                                     user_Id = profile.getId();
                                     user_name = profile.getName();
+
                                     sharedPreference.put(sharedPreference.user_id, user_Id);
                                     sharedPreference.put (sharedPreference.user_name, user_name);
                                     Log.d("FaceBook :::", "id : " + user_Id);
                                     Log.d("FaceBook :::", "name : " + user_name);
                                     User.getInstance().setUserID(user_Id);
+                                    User.getInstance().setUserID(user_name);
 
                                     ServerManager servermanager = ServerManager.getInstance();
                                     System.out.println("유저를 체크합니다----------------");
@@ -112,12 +115,13 @@ public class Login extends Activity {
                                             if(User.getInstance().isExist_already()==true) System.out.println("유저가 존재 합니다........");
                                             else System.out.println("유저가 존재 하지 않습니다........");
 
-                                            if(User.getInstance().isExist_already()==false){
+                                            if(User.getInstance().isExist_already()==false){ //유저가 없는경우
                                                 Intent mainIntent = new Intent(Login.this, GoogleMap.class);
                                                 startActivity(mainIntent);
                                                 finish();
-                                            }else{
+                                            }else{ // 유저가 존재하는 경우 서버에서 데이터를 받아와야함
                                                 Intent mainIntent = new Intent(Login.this, ShowBoardList_Main.class);
+                                                mainIntent.putExtra("exist","hi");
                                                 startActivity(mainIntent);
                                                 finish();
                                             }

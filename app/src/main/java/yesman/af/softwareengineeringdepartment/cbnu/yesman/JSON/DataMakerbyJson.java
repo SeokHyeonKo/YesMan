@@ -47,6 +47,7 @@ public class DataMakerbyJson {
                 int ischeckrequest = tempobj.getInt("ischeckrequest");
                 int ischeckaccept = tempobj.getInt("ischeckaccept");
                 int ismatching = tempobj.getInt("ismatching");
+                System.out.println(ismatching);
                 String userID = tempobj.getString("UserId");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -124,6 +125,30 @@ public class DataMakerbyJson {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public void getAllUserInfo(String response){ // User에 세팅한후 sharedpreference에도 저장해야함
+        JSONObject json = null;
+        User user = User.getInstance();
+
+        try{
+            json = new JSONObject(response);
+            user.setDomain_dsign(json.getInt("domain_design"));
+            user.setDomain_translate(json.getInt("domain_translate"));
+            user.setDomain_document(json.getInt("domain_document"));
+            user.setDomain_marketing(json.getInt("domain_marketing"));
+            user.setDomain_computer(json.getInt("domain_computer"));
+            user.setDomain_music(json.getInt("domain_music"));
+            user.setDomain_service(json.getInt("domain_service"));
+            user.setDomain_play(json.getInt("domain_play"));
+            user.setX(Double.parseDouble(json.getString("x")));
+            user.setY(Double.parseDouble(json.getString("y")));
+            user.setRegID(json.getString("regID"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

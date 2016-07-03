@@ -32,6 +32,7 @@ public class SplashActivity extends Activity {
                             // 페이스북 로그인
                             if(facebook_login.equals("LOGIN")) {
                                 Intent mainIntent = new Intent(SplashActivity.this, ShowBoardList_Main.class);
+                                mainIntent.putExtra("put",1);
                                 SplashActivity.this.startActivity(mainIntent);
                                 SplashActivity.this.finish();
                 }

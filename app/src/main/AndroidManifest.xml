@@ -28,7 +28,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".View.Activity.SplashActivity">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -42,8 +43,17 @@
         <receiver
             android:name=".GCM.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
+                <category android:name="yesman.af.softwareengineeringdepartment.cbnu.yesman" />
+            </intent-filter>
         </receiver>
+        <!-- GCM 서비스 -->
+        <service android:name=".GCM.GCMIntentService" />
+
+        <activity android:name=".View.RegisterBoardActivity">
+        </activity>
         <!-- GCM 서비스 -->
         <service android:name=".GCM.GCMIntentService" />
 

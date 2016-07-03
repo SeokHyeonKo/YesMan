@@ -19,10 +19,11 @@
         android:layout_marginLeft="10dp"
         app:civ_border_width="2dp"
         app:civ_border_color="#FF000000"
-        android:layout_alignTop="@+id/detail_title"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/computer"/>
+        android:src="@drawable/computer"
+        android:layout_alignBottom="@+id/header_image"
+        android:layout_alignParentStart="true" />
 
+    <!--
     <TextView
         android:id="@+id/detail_title"
         android:layout_width="wrap_content"
@@ -43,6 +44,6 @@
         android:text="ID"
         android:layout_alignBottom="@+id/header_image"
         android:layout_alignEnd="@+id/detail_title" />
-
+-->
 </RelativeLayout>
 

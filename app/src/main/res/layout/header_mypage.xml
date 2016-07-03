@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/entertainment"
+        android:src="@drawable/computer"
     />
 
         <com.facebook.login.widget.ProfilePictureView

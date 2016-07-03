@@ -127,6 +127,10 @@ public class ServerConnection extends AsyncTask<String, String, String> {
             ShowBoardList_Main.matchingcount = DataMakerbyJson.getDataMaker().chekMatchingCount(result);
         }
 
+        if(JsonMaker.getInstance().getSeleted()==JsonMaker.GETALLINFO){
+
+        }
+
 
     }
 

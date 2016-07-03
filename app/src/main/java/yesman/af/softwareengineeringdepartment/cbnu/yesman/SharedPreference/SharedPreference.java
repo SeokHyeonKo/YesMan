@@ -12,6 +12,7 @@ public class SharedPreference{
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private static final String PREF_NAME = "PrefName";
+    public static String PUSH_OPTION = "PSUH";
     static Context mContext;
 
     public String domain0 = "domain0";   //디자인

@@ -14,4 +14,7 @@ public class CategoryDomainManager {
     public static int category;
     public static boolean iscurrent;
     public static int domain;
+    public static int isOk = 0; // 1이면 ok 0이면 cancle
+
+
 }

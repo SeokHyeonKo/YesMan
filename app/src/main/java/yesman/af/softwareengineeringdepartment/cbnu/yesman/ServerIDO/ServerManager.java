@@ -19,6 +19,21 @@ public class ServerManager {
         server.execute(url+path);
     }
 
+    public void changeInterested(){
+        path ="/changeinterested";
+        JsonMaker.getInstance().setSeleted(JsonMaker.CHANGE_INTERESTED);
+        checkTask();
+        server.execute(url+path);
+    }
+
+    public void getAllUserInfo(){
+        path ="/getalluserinfo";
+        JsonMaker.getInstance().setSeleted(JsonMaker.GETALLINFO);
+        checkTask();
+        server.execute(url+path);
+    }
+
+
     public void cancelboard(){
         path ="/cancelboard";
         JsonMaker.getInstance().setSeleted(JsonMaker.ACCEPT_BOARD);

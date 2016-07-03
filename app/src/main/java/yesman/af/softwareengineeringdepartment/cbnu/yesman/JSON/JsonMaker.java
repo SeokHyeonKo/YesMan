@@ -15,9 +15,12 @@ public class JsonMaker {
 
 
     private static JsonMaker jsonmaker = null;
-    public static int TEST = -1,JOIN = 0,GET_REQUSET_LIST = 1,GET_DONATION_LIST = 2, REGISTER_BOARD = 3,
+    public static final int TEST = -1,JOIN = 0,GET_REQUSET_LIST = 1,GET_DONATION_LIST = 2, REGISTER_BOARD = 3,
                      CHANGE_LOCATION = 4,CHECK_MYBOARDLIST = 5,CHECK_USER = 6,GET_MY_INFORMATION = 7,
-                      REGISTER_RELIABILITY = 8,ACCEPT_BOARD = 9,CANCEL_BOARD = 10,CHECK_MATCHING = 11;
+                      REGISTER_RELIABILITY = 8,ACCEPT_BOARD = 9,CANCEL_BOARD = 10,CHECK_MATCHING = 11,
+                      CHANGE_INTERESTED = 12, GETALLINFO = 13;
+
+
     private JSONObject jsonobj;
     private JSONArray jsonarr;
     private int selected;
@@ -47,6 +50,10 @@ public class JsonMaker {
             tempobj =cancelBoard(user);
         }else if(selected==CHECK_MATCHING){
             tempobj =checkMatching(user);
+        }else if(selected==CHANGE_INTERESTED){
+            tempobj =changeInterested(user);
+        }else if(selected==GETALLINFO){
+            tempobj =getAllInfo(user);
         }
         else{
             return null;
@@ -55,6 +62,42 @@ public class JsonMaker {
 
         return  tempobj;
     }
+
+    public JSONObject changeInterested(User user){
+        jsonobj = new JSONObject();
+        try {
+
+            jsonobj.put("UserId", user.getUserID());
+            jsonobj.put("domain_dsign", user.getDomain_dsign());
+            jsonobj.put("domain_translate", user.getDomain_translate());
+            jsonobj.put("domain_document", user.getDomain_document());
+            jsonobj.put("domain_marketing", user.getDomain_marketing());
+            jsonobj.put("domain_computer", user.getDomain_computer());
+            jsonobj.put("domain_music", user.getDomain_music());
+            jsonobj.put("domain_service", user.getDomain_service());
+            jsonobj.put("domain_play", user.getDomain_play());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+
+
+    public JSONObject getAllInfo(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("UserId", user.getUserID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+
 
     public JSONObject checkMatching(User user){
         jsonobj = new JSONObject();

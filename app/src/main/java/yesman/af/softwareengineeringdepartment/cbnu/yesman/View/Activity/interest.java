@@ -10,9 +10,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
@@ -75,8 +73,11 @@ public class interest extends AppCompatActivity {
         sharedPreference.put(sharedPreference.domain7, 0);
 
 
+
+
         if (domain0.isChecked() == true) {
             sharedPreference.put(sharedPreference.domain0, 1);
+            //User.getInstance().setDomain_dsign(1);
         }
         if (domain1.isChecked() == true) {
             sharedPreference.put(sharedPreference.domain1, 1);
@@ -105,14 +106,16 @@ public class interest extends AppCompatActivity {
         }
 
 
-        if(getIntent().hasExtra("set")){
+        if(getIntent().hasExtra("set")){ // 관심사 변경
+            System.out.println("관심사 set실행");
+
+            changeInterstedUserInfo();
             ServerManager serverManager = ServerManager.getInstance();
+            serverManager.changeInterested();
 
-        //ServerManager severmanager = ServerManager.getInstance();
-        //severmanager.joinUser();
+            finish();
 
-
-        }else{
+        }else{ // 회원가입중
             ServerManager severmanager = ServerManager.getInstance();
             initUser(); // 초기 user setting;
             User user = User.getInstance();
@@ -154,9 +157,19 @@ public class interest extends AppCompatActivity {
 
     }
 
+    private void changeInterstedUserInfo(){
+        User.getInstance().setDomain_computer(sharedPreference.getValue(sharedPreference.domain4,1));
+        User.getInstance().setDomain_document(sharedPreference.getValue(sharedPreference.domain2,1));
+        User.getInstance().setDomain_dsign(sharedPreference.getValue(sharedPreference.domain0,1));
+        User.getInstance().setDomain_marketing(sharedPreference.getValue(sharedPreference.domain3,1));
+        User.getInstance().setDomain_music(sharedPreference.getValue(sharedPreference.domain5,1));
+        User.getInstance().setDomain_play(sharedPreference.getValue(sharedPreference.domain7,1));
+        User.getInstance().setDomain_service(sharedPreference.getValue(sharedPreference.domain6,1));
+        User.getInstance().setDomain_translate(sharedPreference.getValue(sharedPreference.domain1,1));
+    }
+
+
     private void initUser(){
-
-
 
         String uxs =  sharedPreference.getValue(sharedPreference.user_x,"userx");
         String uys = sharedPreference.getValue(sharedPreference.user_y,"usery");
