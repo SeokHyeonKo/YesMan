@@ -39,6 +39,9 @@ public class ShowBoardList_Main extends AppCompatActivity {
     FragmentPagerItemAdapter adapter;
     MenuItem item;
 
+        public static Fragment_BoardList_inMain frmainfragmentcontrol = null;
+
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -152,16 +155,18 @@ public class ShowBoardList_Main extends AppCompatActivity {
                         if(seletedtab==0){
                             System.out.println("실행?");
                             Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(0);
+                            frmainfragmentcontrol = fr;
                             fr.setListViewAdapter();
 
 
                         }else{
                             System.out.println("실행?");
                             Fragment_BoardList_inMain fr = (Fragment_BoardList_inMain)adapter.getPage(1);
+                            frmainfragmentcontrol = fr;
                             fr.setListViewAdapter();
                         }
                     }
-                }, 600);
+                }, 400);
 
 
                 //adapter.notifyDataSetChanged()

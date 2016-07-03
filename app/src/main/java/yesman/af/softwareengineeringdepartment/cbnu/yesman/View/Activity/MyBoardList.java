@@ -1,5 +1,6 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,11 +36,13 @@ import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 public class MyBoardList extends ActionBarActivity implements MyBoardListViewAdapter.ListBtnClickListener{
     public static int opponetReliability  = 4;
     private TextView textview9;
-    private ListView listView;
-    private Context context;
+    public static ListView listView;
+    public static Context context;
+    public static Activity activity;
     private FButton okbtn;
     private FButton cancelbtn;
-    private MyBoardListViewAdapter adapter;
+    public static MyBoardListViewAdapter adapter;
+    private Handler handelr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //View v = inflator.inflate(R.layout.custom_actionbar_myboardlist, null);
         textview9 = (TextView) findViewById(R.id.textView9);
-
+        activity = MyBoardList.this;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled (false);
@@ -69,7 +72,9 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
         }) ;
 
         User.getInstance().setBoardList(new ArrayList<Board>());
+
         ServerManager.getInstance().checkMyBoardList();
+
 
 
         new Handler().postDelayed(new Runnable()
@@ -81,7 +86,7 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
-        }, 800);
+        }, 600);
 
 
 
@@ -140,7 +145,7 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
                             {
                               ServerManager.getInstance().checkMyBoardList();
                             }
-                        }, 200);
+                        }, 100);
 
                         new Handler().postDelayed(new Runnable()
                         {
@@ -151,7 +156,7 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
                                 listView.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             }
-                        }, 800);
+                        }, 600);
                     }
                 });
         AlertDialog alert = alt_bld.create();

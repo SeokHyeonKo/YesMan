@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.JSON.DataMakerbyJson;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.JSON.JsonMaker;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.MyBoardList;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ShowBoardList_Main;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
@@ -99,7 +100,19 @@ public class ServerConnection extends AsyncTask<String, String, String> {
             if(isbe){
                 User.getInstance().setBoardList(DataMakerbyJson.getDataMaker().getBoardList(result));
 
+                if(JsonMaker.getInstance().getSeleted()==JsonMaker.GET_REQUSET_LIST
+                        || JsonMaker.getInstance().getSeleted()==JsonMaker.GET_DONATION_LIST){
+                   if(ShowBoardList_Main.frmainfragmentcontrol!=null) ShowBoardList_Main.frmainfragmentcontrol.setListViewAdapter();
+                }
 
+                if(JsonMaker.getInstance().getSeleted()==JsonMaker.CHECK_MYBOARDLIST){
+
+                    if(MyBoardList.adapter!=null){
+                        //MyBoardList.adapter = new MyBoardListViewAdapter(MyBoardList.context, R.layout.content_listview_inmyboardlist, User.getInstance().getBoardList(), MyBoardList.context.getCon);
+                       // MyBoardList.listView.setAdapter(MyBoardList.adapter);
+                        //MyBoardList.adapter.notifyDataSetChanged();
+                    }
+                }
                 ArrayList<Board> arr = User.getInstance().getBoardList();
                 for(int i=0;i<arr.size();i++){
                     System.out.println(arr.get(i).getContent());
