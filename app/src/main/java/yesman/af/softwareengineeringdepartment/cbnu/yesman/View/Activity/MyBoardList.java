@@ -2,7 +2,9 @@ package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -79,7 +81,7 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
-        }, 600);
+        }, 800);
 
 
 
@@ -250,10 +252,15 @@ public class MyBoardList extends ActionBarActivity implements MyBoardListViewAda
 
         if(user.getBoardList().get(position).getIsmatching()==1){
             if(CategoryDomainManager.isOk==1)DialogOk();
-            else{
+            else if(CategoryDomainManager.isOk==0){
                 Dialogcancle();
+            }else{
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+User.getInstance().getCurrentBoard().getUserId()));
+                startActivity(intent);
             }
         }
 
     }
+
+
 }

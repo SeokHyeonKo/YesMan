@@ -1,12 +1,17 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import info.hoang8f.widget.FButton;
@@ -64,9 +69,7 @@ public class ContentBoard extends ActionBarActivity {
                 ServerManager serverManager = ServerManager.getInstance();
                 serverManager.acceptBoard();
 
-
-
-                finish();
+                DialogOk();
             }
         });
         FButton cancelbtn = (FButton)findViewById(R.id.cancelbtn_incontentboard);
@@ -112,5 +115,34 @@ public class ContentBoard extends ActionBarActivity {
         }
 
 
+    }
+
+    private void DialogOk(){
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(ContentBoard.this);
+
+        alt_bld.setTitle("매칭 완료");
+
+        alt_bld.setMessage("매칭 된 사람의 페이스북으로 가보시겠습니까?").setCancelable(
+                false).setPositiveButton("네",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Action for 'Yes' Button
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+User.getInstance().getCurrentBoard().getUserId()));
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Action for 'NO' Button
+                        Toast.makeText(ContentBoard.this,"나의 게시판 페이지에 가시면 해당 보드에서 상대방 페이스북에 연결됩니다.",Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        // Title for AlertDialog
+        // Icon for AlertDialog
+        alert.show();
     }
 }

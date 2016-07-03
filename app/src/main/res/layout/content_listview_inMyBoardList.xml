@@ -115,11 +115,21 @@
                     android:orientation="horizontal"
                     android:gravity="right"
                     >
+
+                    <info.hoang8f.widget.FButton
+                        android:id="@+id/contact_btn"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:text="연락"
+                        android:layout_marginRight="10dp"
+                        fbutton:shadowEnabled="true"
+                        />
+
                     <info.hoang8f.widget.FButton
                         android:id="@+id/okbtn_myboardlist"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:text="OK"
+                        android:text="완료"
                         fbutton:buttonColor="@color/fbutton_color_turquoise"
                         fbutton:shadowEnabled="true"
                          />
@@ -129,8 +139,7 @@
                         android:id="@+id/cancel_btn_myboardlist"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:text="cancle"
-                        fbutton:buttonColor="@color/fbutton_color_alizarin"
+                        android:text="취소"
                         fbutton:shadowEnabled="true"
                         android:layout_marginLeft="10dp"
                         android:layout_alignParentEnd="true"

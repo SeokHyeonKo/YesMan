@@ -25,7 +25,9 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
     private ArrayList<Board> data;
     private int layout;
     private Context context;
-
+    FButton okbtn;
+    FButton cancelbtn;
+    FButton contactbtn;
     public interface ListBtnClickListener {
         void onListBtnClick(int position) ;
     }
@@ -81,33 +83,48 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
 
 
 
-        FButton okbtn = (FButton)convertView.findViewById(R.id.okbtn_myboardlist);
+        okbtn = (FButton)convertView.findViewById(R.id.okbtn_myboardlist);
         okbtn.setTag(position);
-        FButton cancelbtn = (FButton)convertView.findViewById(R.id.cancel_btn_myboardlist);
+        cancelbtn = (FButton)convertView.findViewById(R.id.cancel_btn_myboardlist);
         cancelbtn.setTag(position);
+        contactbtn = (FButton)convertView.findViewById(R.id.contact_btn);
+        contactbtn.setTag(position);
+
 
         okbtn.setOnClickListener(this);
         cancelbtn.setOnClickListener(this);
+        contactbtn.setOnClickListener(this);
 
         System.out.println("리스트 아이템 매칭 현황 : "+listviewitem.getContent()+listviewitem.getIsmatching());
 
+
+
         if(listviewitem.getIsmatching()==0){ // 매칭중
+            contactbtn.setVisibility(View.GONE);
             okbtn.setVisibility(View.GONE);
             cancelbtn.setText("매칭중");
             cancelbtn.setButtonColor(R.color.fbutton_color_orange);
             System.out.println("매칭중 실행");
 
-        }else if(listviewitem.getIsmatching()==1){ // 진행중
+        }
+
+        if(listviewitem.getIsmatching()==1){ // 진행중
+            contactbtn.setVisibility(View.VISIBLE);
             okbtn.setVisibility(View.VISIBLE);
             cancelbtn.setText("cancel");
             cancelbtn.setButtonColor(R.color.fbutton_color_turquoise);
             System.out.println("진행중 실행");
-        }else{// 완료
+        }
+
+        if(listviewitem.getIsmatching()==2){// 완료
+            contactbtn.setVisibility(View.GONE);
             okbtn.setVisibility(View.GONE);
             cancelbtn.setText("완료");
             cancelbtn.setButtonColor(R.color.fbutton_color_green_sea);
             System.out.println("완료 실행");
         }
+
+
 
         TextView name = (TextView) convertView.findViewById(R.id.title);
         name.setText(listviewitem.getTitle());
@@ -133,7 +150,10 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
     public void onClick(View v) {
         if(this.listBtnClickListener!=null){
             if(v.getId()==R.id.okbtn_myboardlist) CategoryDomainManager.isOk = 1;
-            else CategoryDomainManager.isOk = 0;
+            else if(v.getId()==R.id.cancel_btn_myboardlist) CategoryDomainManager.isOk = 0;
+            else{
+                CategoryDomainManager.isOk = 2;
+            }
 
             this.listBtnClickListener.onListBtnClick((int)v.getTag());
         }
