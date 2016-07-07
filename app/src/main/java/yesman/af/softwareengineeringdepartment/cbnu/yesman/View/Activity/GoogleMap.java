@@ -45,7 +45,7 @@ public class GoogleMap extends AppCompatActivity {
         GooglePlayServicesUtil.isGooglePlayServicesAvailable(GoogleMap.this);
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-        map.setOnMapClickListener(new com.google.android.gms.maps.GoogleMap.OnMapClickListener() {
+         map.setOnMapClickListener(new com.google.android.gms.maps.GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng arg0) {
                 // TODO Auto-generated method stub
@@ -158,6 +158,7 @@ public class GoogleMap extends AppCompatActivity {
             System.out.println("user x값 : "+x);
             System.out.println("user y값 : "+y);
             startActivity(new Intent(this, interest.class));
+            finish();
         }
 
 

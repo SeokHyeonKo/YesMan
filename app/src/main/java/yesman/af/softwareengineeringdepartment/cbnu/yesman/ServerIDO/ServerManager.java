@@ -12,6 +12,27 @@ public class ServerManager {
     private String path;
     private String url = "http://kossi.iptime.org:2000/YesManProject";
 
+    public ServerConnection getServerConnection(){
+        return server;
+    }
+
+
+    public void deleteBoard(){
+        path="/deleteboard";
+        JsonMaker.getInstance().setSeleted(JsonMaker.MODFIY_BOARD);
+        checkTask();
+        server.execute(url+path);
+    }
+
+
+
+    public void modifyBoard(){
+        path ="/checkMatching";
+        JsonMaker.getInstance().setSeleted(JsonMaker.MODFIY_BOARD);
+        checkTask();
+        server.execute(url+path);
+    }
+
     public void checkMatching(){
         path ="/checkMatching";
         JsonMaker.getInstance().setSeleted(JsonMaker.CHECK_MATCHING);
@@ -34,11 +55,11 @@ public class ServerManager {
     }
 
 
-    public void cancelboard(){
+    public String cancelboard(){
         path ="/cancelboard";
         JsonMaker.getInstance().setSeleted(JsonMaker.ACCEPT_BOARD);
-        checkTask();
-        server.execute(url+path);
+        //checkTask();
+        return url+path;
     }
 
     public void acceptBoard(){
@@ -49,11 +70,11 @@ public class ServerManager {
     }
 
 
-    public void registerReliAbility(){
+    public String registerReliAbility(){
         path ="/registerreliability";
         JsonMaker.getInstance().setSeleted(JsonMaker.REGISTER_RELIABILITY);
-        checkTask();
-        server.execute(url+path);
+        //checkTask();
+        return url+path;
     }
 
     public void getMyInformation(){

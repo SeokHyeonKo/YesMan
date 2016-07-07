@@ -149,9 +149,11 @@ public class interest extends AppCompatActivity {
                 {
                     User.getInstance().setRegID(getRegistrationId(context)); // 기존에 발급받은 등록 아이디를 가져온다
                     startActivity(new Intent(interest.this, ShowBoardList_Main.class));
+                    finish();
                 }
             }, 600);
         }
+
 
 
 

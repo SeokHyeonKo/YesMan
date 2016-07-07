@@ -18,7 +18,7 @@ public class JsonMaker {
     public static final int TEST = -1,JOIN = 0,GET_REQUSET_LIST = 1,GET_DONATION_LIST = 2, REGISTER_BOARD = 3,
                      CHANGE_LOCATION = 4,CHECK_MYBOARDLIST = 5,CHECK_USER = 6,GET_MY_INFORMATION = 7,
                       REGISTER_RELIABILITY = 8,ACCEPT_BOARD = 9,CANCEL_BOARD = 10,CHECK_MATCHING = 11,
-                      CHANGE_INTERESTED = 12, GETALLINFO = 13;
+                      CHANGE_INTERESTED = 12, GETALLINFO = 13, MODFIY_BOARD = 14, DELETE_BOARD = 15;
 
 
     private JSONObject jsonobj;
@@ -54,14 +54,44 @@ public class JsonMaker {
             tempobj =changeInterested(user);
         }else if(selected==GETALLINFO){
             tempobj =getAllInfo(user);
+        }else if(selected==MODFIY_BOARD){
+            tempobj = modifyBoard(user);
+        }else if(selected==DELETE_BOARD){
+            tempobj = deleteBoard(user);
         }
-        else{
+        else {
             return null;
         }
 
 
         return  tempobj;
     }
+
+    public JSONObject deleteBoard(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("boardserialnumber",user.getCurrentBoard().getBoardserialnumber());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+    public JSONObject modifyBoard(User user){
+        jsonobj = new JSONObject();
+        try {
+            jsonobj.put("title", user.getCurrentBoard().getTitle());
+            jsonobj.put("boardserialnumber",user.getCurrentBoard().getBoardserialnumber());
+            jsonobj.put("content",user.getCurrentBoard().getContent());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonobj;
+    }
+
+
 
     public JSONObject changeInterested(User user){
         jsonobj = new JSONObject();

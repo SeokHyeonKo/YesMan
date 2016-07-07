@@ -15,10 +15,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.R;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.View.Activity.ContentBoard;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.Board;
 import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.CategoryDomainManager;
+import yesman.af.softwareengineeringdepartment.cbnu.yesman.model.User;
 //으범수정
 /**
  * Created by seokhyeon on 2016-06-26.
@@ -83,11 +88,36 @@ public class GCMIntentService extends IntentService {
         String jobjstring = extras.getString(TYPE_EXTRA_CODE);
         System.out.println("넘어온 제이슨 : "+jobjstring);
         int domain = 3;
+        String useridfromj = null;
         JSONObject jboj = null;
+
         try {
+
             jboj = new JSONObject(jobjstring);
+            int boardserial = jboj.getInt("boardserialnumber");
+            double x = jboj.getDouble("x");
+            double y = jboj.getDouble("y");
+            String title = jboj.getString("title");
+            String content = jboj.getString("content");
             domain = jboj.getInt("domain");
+            String requestID  = jboj.getString("requestID");
+            String acceptID = jboj.getString("acceptID");
+            int category = jboj.getInt("category");
+            int ischeckrequest = jboj.getInt("ischeckrequest");
+            int ischeckaccept = jboj.getInt("ischeckaccept");
+            int ismatching = jboj.getInt("ismatching");
+            System.out.println(ismatching);
+            useridfromj = jboj.getString("UserId");
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date  = simpleDateFormat.parse(jboj.getString("date"));
+
+            Board board = new Board(boardserial,x,y,title,content,domain,requestID,acceptID,category,ischeckrequest,ischeckaccept,ismatching,date,useridfromj);
+            User.getInstance().setCurrentBoard(board);
+
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -96,7 +126,9 @@ public class GCMIntentService extends IntentService {
 
         GCMValue.IS_NOTIFICATION = "TRUE";
         Intent intent = new Intent(this,ContentBoard.class);
-        intent.putExtra(GCMValue.NOTIFICATION,GCMValue.IS_NOTIFICATION);
+        intent.putExtra("title",extras.getString(TITLE_EXTRA_KEY));
+        intent.putExtra("content",extras.getString(MSG_EXTRA_KEY));
+        intent.putExtra("userid", useridfromj);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 intent, 0);
@@ -110,7 +142,7 @@ public class GCMIntentService extends IntentService {
                     .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(URLDecoder.decode(extras.getString(MSG_EXTRA_KEY), "UTF-8")))
                     .setContentText(URLDecoder.decode("내용 : "+extras.getString(MSG_EXTRA_KEY), "UTF-8"))
-                    .setGroup(URLDecoder.decode(jboj.getString("userid"), "UTF-8"));
+                    .setGroup(URLDecoder.decode(useridfromj, "UTF-8"));
 
             if(domain== CategoryDomainManager.COMPUTER){
                 mBuilder.setSmallIcon(R.drawable.computer);
@@ -131,8 +163,6 @@ public class GCMIntentService extends IntentService {
             }
 
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
 

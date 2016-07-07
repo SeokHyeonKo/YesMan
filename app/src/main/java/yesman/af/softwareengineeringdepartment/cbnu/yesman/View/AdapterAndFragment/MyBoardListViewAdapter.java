@@ -1,6 +1,7 @@
 package yesman.af.softwareengineeringdepartment.cbnu.yesman.View.AdapterAndFragment;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,7 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
     private ArrayList<Board> data;
     private int layout;
     private Context context;
-    FButton okbtn;
-    FButton cancelbtn;
-    FButton contactbtn;
+
     public interface ListBtnClickListener {
         void onListBtnClick(int position) ;
     }
@@ -58,6 +57,9 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
             convertView = inflater.inflate(layout, parent, false);
         }
 
+        FButton okbtn;
+        FButton cancelbtn;
+        FButton contactbtn;
 
 
         Board listviewitem = data.get(position);
@@ -90,6 +92,9 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
         contactbtn = (FButton)convertView.findViewById(R.id.contact_btn);
         contactbtn.setTag(position);
 
+        Resources resources = context.getResources();
+
+
 
         okbtn.setOnClickListener(this);
         cancelbtn.setOnClickListener(this);
@@ -100,10 +105,17 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
 
 
         if(listviewitem.getIsmatching()==0){ // 매칭중
-            contactbtn.setVisibility(View.GONE);
-            okbtn.setVisibility(View.GONE);
+            contactbtn.setVisibility(View.VISIBLE);
+            okbtn.setVisibility(View.VISIBLE);
+            contactbtn.setText("수정");
+            okbtn.setText("삭제");
             cancelbtn.setText("매칭중");
-            cancelbtn.setButtonColor(R.color.fbutton_color_orange);
+
+            contactbtn.setButtonColor(resources.getColor(R.color.fbutton_color_peter_river));
+            okbtn.setButtonColor(resources.getColor(R.color.fbutton_color_peter_river));
+            cancelbtn.setButtonColor(resources.getColor(R.color.fbutton_color_peter_river));
+
+
             System.out.println("매칭중 실행");
 
         }
@@ -111,8 +123,14 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
         if(listviewitem.getIsmatching()==1){ // 진행중
             contactbtn.setVisibility(View.VISIBLE);
             okbtn.setVisibility(View.VISIBLE);
-            cancelbtn.setText("cancel");
-            cancelbtn.setButtonColor(R.color.fbutton_color_turquoise);
+
+            contactbtn.setText("연락");
+            okbtn.setText("평가");
+            cancelbtn.setText("취소");
+
+            contactbtn.setButtonColor(resources.getColor(R.color.fbutton_color_sun_flower));
+            okbtn.setButtonColor(resources.getColor(R.color.fbutton_color_sun_flower));
+            cancelbtn.setButtonColor(resources.getColor(R.color.fbutton_color_sun_flower));
             System.out.println("진행중 실행");
         }
 
@@ -120,7 +138,9 @@ public class MyBoardListViewAdapter extends BaseAdapter implements View.OnClickL
             contactbtn.setVisibility(View.GONE);
             okbtn.setVisibility(View.GONE);
             cancelbtn.setText("완료");
-            cancelbtn.setButtonColor(R.color.fbutton_color_green_sea);
+
+            //cancelbtn.setBackgroundColor(Color.GREEN);
+            cancelbtn.setButtonColor(resources.getColor(R.color.fbutton_color_green_sea));
             System.out.println("완료 실행");
         }
 

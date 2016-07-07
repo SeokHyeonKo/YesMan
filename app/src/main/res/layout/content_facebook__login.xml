@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".View.Activity.Login"
     android:background="@drawable/login"
-    android:onClick="onClickFacebookLogin">
+    >
 
 
 
